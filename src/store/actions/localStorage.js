@@ -29,12 +29,14 @@ export const initLocalStorageJSON = () => {
                 0: {
                     name: 'Plik testowy',
                     type: 'txt',
-                    background: 'http://icons.iconarchive.com/icons/pelfusion/flat-file-type/256/txt-icon.png'
+                    background: 'http://icons.iconarchive.com/icons/pelfusion/flat-file-type/256/txt-icon.png',
+                    text: 'THIS IS JUST SIMPLE TEXT'
                 },
                 1: {
                     name: 'Pliczuś',
                     type: 'txt',
-                    background: 'http://icons.iconarchive.com/icons/pelfusion/flat-file-type/256/txt-icon.png'
+                    background: 'http://icons.iconarchive.com/icons/pelfusion/flat-file-type/256/txt-icon.png',
+                    text: 'NOTEPAD :D'
                 }
             }
         });
