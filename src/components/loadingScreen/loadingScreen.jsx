@@ -7,9 +7,8 @@ import './loadingScreen.css';
 class LoadingScreen extends Component {
 
     render() {
-        const { active } = this.props;  
         return (
-            <div className={active ? 'loadingScreen active' : 'loadingScreen'}>
+            <div className='loadingScreen'>
                 <Spinner />
             </div>
         )

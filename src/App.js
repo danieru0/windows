@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import './App.css';
-
 import LoadingScreen from './components/loadingScreen/loadingScreen';
 
 import { getLocalStorageJSON } from './store/actions/localStorage';
+
+import './App.css';
 
 class App extends Component {
 
@@ -14,17 +14,23 @@ class App extends Component {
   }
 
   render() {
+    const { data } = this.props;
+    console.log(data);
     return (
-      <div className="App">
-        <LoadingScreen active={this.props.data ? false : true} />
-      </div>
+      data ? (
+        <div style={{ backgroundImage: `url(${data.wallpapers.active})` }} className="App">
+          
+        </div>
+      ) : (
+        <LoadingScreen />
+      )
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    data: state.localStorage.data,
+    data: state.localStorage.data ? state.localStorage.data[0] : null,
   }
 }
 
