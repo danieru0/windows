@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import LoadingScreen from './components/loadingScreen/loadingScreen';
-
 import { getLocalStorageJSON } from './store/actions/localStorage';
+
+import LoadingScreen from './components/loadingScreen/loadingScreen';
+import Files from './components/files/Files';
 
 import './App.css';
 
@@ -19,7 +20,7 @@ class App extends Component {
     return (
       data ? (
         <div style={{ backgroundImage: `url(${data.wallpapers.active})` }} className="App">
-          
+           <Files files={data.files} />
         </div>
       ) : (
         <LoadingScreen />
