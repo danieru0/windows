@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import './App.css';
+
+import LoadingScreen from './components/loadingScreen/loadingScreen';
+
 import { getLocalStorageJSON } from './store/actions/localStorage';
 
 class App extends Component {
@@ -12,6 +16,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <LoadingScreen active={this.props.data ? false : true} />
       </div>
     );
   }

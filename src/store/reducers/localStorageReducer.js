@@ -13,6 +13,11 @@ export default (state = initState, action) => {
             return {
                 ...state
             }
+        case 'CREATE_LOCAL_STORAGE_SUCCESS':
+            return {
+                ...state,
+                data: action.data
+            }
         default: return state;
     }
 }
