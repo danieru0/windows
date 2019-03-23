@@ -1,7 +1,7 @@
-import testReducer from './testReducer';
+import localStorageReducer from './localStorageReducer';
 
 import { combineReducers } from 'redux';
 
 export default combineReducers({
-    test: testReducer
+    localStorage: localStorageReducer
 });
