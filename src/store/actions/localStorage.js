@@ -30,6 +30,7 @@ export const initLocalStorageJSON = () => {
                     type: 'txt',
                     background: 'http://icons.iconarchive.com/icons/pelfusion/flat-file-type/256/txt-icon.png',
                     text: 'THIS IS JUST SIMPLE TEXT',
+                    index: 0,
                     xPosition: null,
                     yPosition: null
                 },
@@ -38,12 +39,36 @@ export const initLocalStorageJSON = () => {
                     type: 'txt',
                     background: 'http://icons.iconarchive.com/icons/pelfusion/flat-file-type/256/txt-icon.png',
                     text: 'NOTEPAD :D',
+                    index: 1,
+                    xPosition: null,
+                    yPosition: null
+                },
+                10: {
+                    name: 'Youtube link',
+                    type: 'link',
+                    href: 'www.youtube.pl',
+                    index: 10,
+                    background: 'http://icons.iconarchive.com/icons/danleech/simple/256/youtube-icon.png',
                     xPosition: null,
                     yPosition: null
                 }
             }
         } 
         localStorage.setItem('app', JSON.stringify(appJSON));
+        let applications = {
+            active: {
+                0: {
+                    name: 'Plik testowy',
+                    type: 'txt',
+                    background: 'http://icons.iconarchive.com/icons/pelfusion/flat-file-type/256/txt-icon.png',
+                    text: 'THIS IS JUST SIMPLE TEXT',
+                    index: 0,
+                    xPosition: null,
+                    yPosition: null
+                }
+            }
+        }
+        localStorage.setItem('running', JSON.stringify(applications));
         dispatch({
             type: 'CREATE_LOCAL_STORAGE_SUCCESS',
             data: JSON.parse(localStorage.getItem('app'))
@@ -54,6 +79,10 @@ export const initLocalStorageJSON = () => {
 export const saveChanges = data => {
     return dispatch => {
         localStorage.setItem('app', JSON.stringify(data));
+        dispatch({
+            type: 'SAVE_LOCAL_STORAGE_SUCCESS',
+            data: data
+        })
     }
 }
 
@@ -63,6 +92,30 @@ export const saveFilePosition = (data, xPosition, yPosition, fileIndex) => {
             data.files[fileIndex].xPosition = xPosition;
             data.files[fileIndex].yPosition = yPosition;
             dispatch(saveChanges(data));
+        }
+    }
+}
+
+export const getRunningApplications = () => {
+    return dispatch => {
+        let apps = JSON.parse(localStorage.getItem('running'));
+        dispatch({
+            type: 'GET_RUNNING_APPS_SUCCESS',
+            data: apps
+        });
+    }
+}
+
+export const addRunningAppToLocalStorage = (runningApps, app) => {
+    return dispatch => {
+        let lastValue = parseInt(Object.keys(runningApps.active)[Object.keys(runningApps.active).length - 1]);
+        if (app.index !== lastValue) {
+            runningApps.active[app.index] = app;
+            localStorage.setItem('running', JSON.stringify(runningApps));
+            dispatch({
+                type: 'ADD_RUNNING_APP_SUCCESS',
+                data: JSON.parse(localStorage.getItem('running'))
+            });
         }
     }
 }

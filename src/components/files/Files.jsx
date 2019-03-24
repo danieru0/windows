@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import Txt from './txt/Txt';
+import { addRunningAppToLocalStorage } from '../../store/actions/localStorage';
+
+import FileIcon from './FileIcon';
 
 import './Files.css';
 
 class Files extends Component {
 
     openApp = e => {
-        alert(e.target);
+        let clickedApp = this.props.files[e.target.id];
+        this.props.addRunningAppToLocalStorage(this.props.applications, clickedApp);
     }
 
     render() {
@@ -16,13 +20,10 @@ class Files extends Component {
             <>
                 {
                     Object.keys(files).map((item, key) => {
-                        let file = files[key];
-                        if (file.type === 'txt') {
-                            return (
-                                <Txt key={item} xPosition={file.xPosition} yPosition={file.yPosition} index={key} onDoubleClick={this.openApp} name={file.name} background={file.background} />
-                            )
-                        }
-                        return ('')
+                        let file = files[item];
+                        return (
+                            <FileIcon key={key} xPosition={file.xPosition} yPosition={file.yPosition} index={item} onDoubleClick={this.openApp} name={file.name} background={file.background} />
+                        )
                     })
                 }
             </>
@@ -30,4 +31,10 @@ class Files extends Component {
     }
 }
 
-export default Files;
+const mapStateToProps = state => {
+    return {
+        applications: state.localStorage.apps
+    }
+}
+
+export default connect(mapStateToProps , {addRunningAppToLocalStorage })(Files);

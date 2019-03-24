@@ -1,5 +1,6 @@
 const initState = {
     data: null,
+    apps: null
 }
 
 export default (state = initState, action) => {
@@ -17,6 +18,16 @@ export default (state = initState, action) => {
             return {
                 ...state,
                 data: action.data
+            }
+        case 'GET_RUNNING_APPS_SUCCESS':
+            return {
+                ...state,
+                apps: action.data
+            }
+        case 'ADD_RUNNING_APP_SUCCESS':
+            return {
+                ...state,
+                apps: action.data
             }
         default: return state;
     }

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import { connect } from 'react-redux';
 
-import { saveFilePosition } from '../../../store/actions/localStorage';
+import { saveFilePosition } from '../../store/actions/localStorage';
 
-class Txt extends Component {
+class FileIcon extends Component {
 
     handleDrag = (e) => {
         let xPosition = e.x - e.offsetX;
@@ -37,4 +37,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { saveFilePosition })(Txt);
+export default connect(mapStateToProps, { saveFilePosition })(FileIcon);
