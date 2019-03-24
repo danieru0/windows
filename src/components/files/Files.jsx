@@ -19,7 +19,7 @@ class Files extends Component {
                         let file = files[key];
                         if (file.type === 'txt') {
                             return (
-                                <Txt key={item} index={key} onDoubleClick={this.openApp} name={file.name} background={file.background} />
+                                <Txt key={item} xPosition={file.xPosition} yPosition={file.yPosition} index={key} onDoubleClick={this.openApp} name={file.name} background={file.background} />
                             )
                         }
                         return ('')

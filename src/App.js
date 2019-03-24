@@ -16,7 +16,6 @@ class App extends Component {
 
   render() {
     const { data } = this.props;
-    console.log(data);
     return (
       data ? (
         <div style={{ backgroundImage: `url(${data.wallpapers.active})` }} className="App">
@@ -31,7 +30,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    data: state.localStorage.data ? state.localStorage.data[0] : null,
+    data: state.localStorage.data
   }
 }
 
