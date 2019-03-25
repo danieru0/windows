@@ -29,12 +29,19 @@ class Notepad extends Component {
         this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.appData.index);
     }
 
+    makeFirst = e => {
+        e.target.parentNode.classList.add('active');
+    }
+
+    removeFirst = e => {
+        e.target.parentNode.classList.remove('active');
+    }
+
     render() {
         const { appData } = this.props;
-        console.log(appData.text);
         return (
-            <Draggable handle=".notepad__topbar" bounds="body">
-                <div className="notepad">
+            <Draggable onDrag={this.makeFirst} handle=".notepad__topbar" bounds="body">
+                <div onBlur={this.removeFirst} onFocus={this.makeFirst} className="notepad">
                     <div className="notepad__topbar">
                         <div className="notepad__options">
                             <button>save</button>
