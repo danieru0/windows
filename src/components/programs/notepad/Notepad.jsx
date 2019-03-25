@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Draggable from 'react-draggable';
 
-import { removeRunningAppFromLocalStorage } from '../../../store/actions/localStorage';
+import { removeRunningAppFromLocalStorage, saveProgramPosition } from '../../../store/actions/localStorage';
 
 import './Notepad.css';
 
@@ -29,6 +29,12 @@ class Notepad extends Component {
         this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.appData.index);
     }
 
+    handleDrag = e => {
+        let xPosition = e.x - e.offsetX;
+        let yPosition = e.layerY - e.offsetY;
+        this.props.saveProgramPosition(this.props.applications, xPosition, yPosition, this.props.appData.index); 
+    }
+
     makeFirst = e => {
         e.target.parentNode.classList.add('active');
     }
@@ -39,8 +45,13 @@ class Notepad extends Component {
 
     render() {
         const { appData } = this.props;
+        const defaultPosition = {
+            x: appData.xPosition ? appData.xPosition : null,
+            y: appData.yPosition ? appData.yPosition : null
+        }
+
         return (
-            <Draggable onDrag={this.makeFirst} handle=".notepad__topbar" bounds="body">
+            <Draggable defaultPosition={defaultPosition} onDrag={(e) => {this.makeFirst(e); this.handleDrag(e)}} handle=".notepad__topbar" bounds="body">
                 <div onBlur={this.removeFirst} onFocus={this.makeFirst} className="notepad">
                     <div className="notepad__topbar">
                         <div className="notepad__options">
@@ -66,4 +77,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { removeRunningAppFromLocalStorage })(Notepad);
+export default connect(mapStateToProps, { removeRunningAppFromLocalStorage, saveProgramPosition })(Notepad);

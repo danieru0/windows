@@ -34,6 +34,11 @@ export default (state = initState, action) => {
                 ...state,
                 apps: action.data
             }
+        case 'SAVE_RUNNING_APP_POSITION_SUCCESS':
+            return {
+                ...state,
+                apps: action.data
+            }
         default: return state;
     }
 }

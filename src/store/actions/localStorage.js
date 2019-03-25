@@ -130,3 +130,15 @@ export const removeRunningAppFromLocalStorage = (runningApps, appIndex) => {
         })
     }
 }
+
+export const saveProgramPosition = (runningApps, xPosition, yPosition, appIndex) => {
+    return dispatch => {
+        runningApps.active[appIndex].xPosition = xPosition;
+        runningApps.active[appIndex].yPosition = yPosition;
+        localStorage.setItem('running', JSON.stringify(runningApps));
+        dispatch({
+            type: 'SAVE_RUNNING_APP_POSITION_SUCCESS',
+            data: runningApps
+        });
+    }
+}
