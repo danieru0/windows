@@ -11,7 +11,11 @@ class Files extends Component {
 
     openApp = e => {
         let clickedApp = this.props.files[e.target.id];
-        this.props.addRunningAppToLocalStorage(this.props.applications, clickedApp);
+        if (clickedApp.type !== 'link') {
+            this.props.addRunningAppToLocalStorage(this.props.applications, clickedApp);
+        } else {
+            window.open(clickedApp.href);
+        }
     }
 
     render() {

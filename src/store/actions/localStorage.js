@@ -46,7 +46,7 @@ export const initLocalStorageJSON = () => {
                 10: {
                     name: 'Youtube link',
                     type: 'link',
-                    href: 'www.youtube.pl',
+                    href: 'https://www.youtube.pl',
                     index: 10,
                     background: 'http://icons.iconarchive.com/icons/danleech/simple/256/youtube-icon.png',
                     xPosition: null,
@@ -117,5 +117,16 @@ export const addRunningAppToLocalStorage = (runningApps, app) => {
                 data: JSON.parse(localStorage.getItem('running'))
             });
         }
+    }
+}
+
+export const removeRunningAppFromLocalStorage = (runningApps, appIndex) => {
+    return dispatch => {
+        delete runningApps.active[appIndex];
+        localStorage.setItem('running', JSON.stringify(runningApps));
+        dispatch({
+            type: 'REMOVE_RUNNING_APP_SUCCESS',
+            data: JSON.parse(localStorage.getItem('running'))
+        })
     }
 }

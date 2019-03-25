@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Notepad from './notepad/Notepad';
+
 import { getRunningApplications } from '../../store/actions/localStorage';
 
 class Programs extends Component {
@@ -16,9 +18,8 @@ class Programs extends Component {
                     applications ? (
                         Object.keys(applications.active).map((item, key) => {
                             let app = applications.active[item];
-                            console.log(app);
                             return (
-                                ''
+                                <Notepad appData={app} key={item} />
                             )
                         })
                     ) : (

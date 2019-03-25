@@ -29,6 +29,11 @@ export default (state = initState, action) => {
                 ...state,
                 apps: action.data
             }
+        case 'REMOVE_RUNNING_APP_SUCCESS':
+            return {
+                ...state,
+                apps: action.data
+            }
         default: return state;
     }
 }
