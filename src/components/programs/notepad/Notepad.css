@@ -42,6 +42,29 @@
     position: absolute;
     left: 0;
     top: 0;
+    height: 100%;
+}
+
+.notepad__btn {
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 26px;
+    outline: none;
+}
+
+.btn-underline {
+    font-size: 18px;
+}
+
+.btn-italic {
+    font-size: 20px;
+}
+.btn-bold {
+    font-size: 20px;
+    margin-left: 10px;
 }
 
 .notepad__program-options {

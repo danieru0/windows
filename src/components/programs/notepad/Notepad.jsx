@@ -9,13 +9,6 @@ import { removeRunningAppFromLocalStorage, saveProgramPosition } from '../../../
 import './Notepad.css';
 
 class Notepad extends Component {
-    constructor() {
-        super();
-        this.state = {
-            textAreaValue: ''
-        }
-    }
-
     componentDidMount() {
         this.notepadEditor.innerHTML = this.props.appData.text;
     }
@@ -34,12 +27,17 @@ class Notepad extends Component {
         this.props.saveNotepadState(this.props.data, this.props.appData.index, this.notepadEditor.innerHTML, this.props.applications);
     }
 
-    makeFirst = e => {
+    handleEditorOptionClick = e => {
+        e.preventDefault();
+        document.execCommand(e.currentTarget.value, false);
+    }
+
+    makeFirst = () => {
         this.notepad.classList.add('active');
     }
 
     removeFirst = e => {
-        e.target.parentNode.classList.remove('active');
+        this.notepad.classList.remove('active');
     }
 
     render() {
@@ -54,7 +52,18 @@ class Notepad extends Component {
                 <div ref={r => this.notepad = r} onBlur={this.removeFirst} onFocus={this.makeFirst} className="notepad">
                     <div className="notepad__topbar">
                         <div className="notepad__options">
-                            <button onClick={this.saveNotepadText}>save</button>
+                            <button className="notepad__btn btn-save" onClick={this.saveNotepadText}>
+                                <span className="fa fa-save"></span>
+                            </button>
+                            <button onMouseDown={this.handleEditorOptionClick} value="bold" className="notepad__btn btn-bold">
+                                <span className="fa fa-bold"></span>
+                            </button>
+                            <button onMouseDown={this.handleEditorOptionClick} value="italic" className="notepad__btn btn-italic">
+                                <span className="fa fa-italic"></span>
+                            </button>
+                            <button onMouseDown={this.handleEditorOptionClick} value="underline" className="notepad__btn btn-underline">
+                                <span className="fa fa-underline"></span>
+                            </button>
                         </div>
                         <span className="notepad__name">{appData.name}</span>
                         <div className="notepad__program-options">
