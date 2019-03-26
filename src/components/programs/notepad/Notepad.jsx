@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Draggable from 'react-draggable';
 
+
+import { saveNotepadState } from '../../../store/actions/notepadProgram';
 import { removeRunningAppFromLocalStorage, saveProgramPosition } from '../../../store/actions/localStorage';
 
 import './Notepad.css';
@@ -15,14 +17,7 @@ class Notepad extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-            textAreaValue: this.props.appData.text
-        });
         this.ref.innerHTML = this.props.appData.text;
-    }
-
-    textAreaHandler = e => {
-        this.setState({ textAreaValue: e.target.value });
     }
 
     handleCloseButton = () => {
@@ -33,6 +28,10 @@ class Notepad extends Component {
         let xPosition = e.x - e.offsetX;
         let yPosition = e.layerY - e.offsetY;
         this.props.saveProgramPosition(this.props.applications, xPosition, yPosition, this.props.appData.index); 
+    }
+
+    saveNotepadText = () => {
+        this.props.saveNotepadState(this.props.applications, this.props.appData.index, this.ref.innerHTML);
     }
 
     makeFirst = e => {
@@ -55,7 +54,7 @@ class Notepad extends Component {
                 <div onBlur={this.removeFirst} onFocus={this.makeFirst} className="notepad">
                     <div className="notepad__topbar">
                         <div className="notepad__options">
-                            <button>save</button>
+                            <button onClick={this.saveNotepadText}>save</button>
                         </div>
                         <span className="notepad__name">{appData.name}</span>
                         <div className="notepad__program-options">
@@ -64,7 +63,7 @@ class Notepad extends Component {
                             </button>
                         </div>
                     </div>
-                    <div ref={r => this.ref = r} contentEditable="true" onChange={this.textAreaHandler} id={appData.index} className="notepad__textarea"></div>
+                    <div ref={r => this.ref = r} contentEditable="true" className="notepad__textarea"></div>
                 </div>
             </Draggable>
         )
@@ -77,4 +76,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { removeRunningAppFromLocalStorage, saveProgramPosition })(Notepad);
+export default connect(mapStateToProps, { removeRunningAppFromLocalStorage, saveProgramPosition, saveNotepadState })(Notepad);
