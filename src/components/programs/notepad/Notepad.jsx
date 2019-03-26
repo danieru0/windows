@@ -17,7 +17,7 @@ class Notepad extends Component {
     }
 
     componentDidMount() {
-        this.ref.innerHTML = this.props.appData.text;
+        this.notepadEditor.innerHTML = this.props.appData.text;
     }
 
     handleCloseButton = () => {
@@ -31,11 +31,11 @@ class Notepad extends Component {
     }
 
     saveNotepadText = () => {
-        this.props.saveNotepadState(this.props.applications, this.props.appData.index, this.ref.innerHTML);
+        this.props.saveNotepadState(this.props.data, this.props.appData.index, this.notepadEditor.innerHTML, this.props.applications);
     }
 
     makeFirst = e => {
-        e.target.parentNode.classList.add('active');
+        this.notepad.classList.add('active');
     }
 
     removeFirst = e => {
@@ -51,7 +51,7 @@ class Notepad extends Component {
 
         return (
             <Draggable defaultPosition={defaultPosition} onDrag={(e) => {this.makeFirst(e); this.handleDrag(e)}} handle=".notepad__topbar" bounds="body">
-                <div onBlur={this.removeFirst} onFocus={this.makeFirst} className="notepad">
+                <div ref={r => this.notepad = r} onBlur={this.removeFirst} onFocus={this.makeFirst} className="notepad">
                     <div className="notepad__topbar">
                         <div className="notepad__options">
                             <button onClick={this.saveNotepadText}>save</button>
@@ -63,7 +63,7 @@ class Notepad extends Component {
                             </button>
                         </div>
                     </div>
-                    <div ref={r => this.ref = r} contentEditable="true" className="notepad__textarea"></div>
+                    <div ref={r => this.notepadEditor = r} contentEditable="true" className="notepad__textarea"></div>
                 </div>
             </Draggable>
         )
@@ -72,7 +72,8 @@ class Notepad extends Component {
 
 const mapStateToProps = state => {
     return {
-        applications: state.localStorage.apps
+        applications: state.localStorage.apps,
+        data: state.localStorage.data
     }
 }
 
