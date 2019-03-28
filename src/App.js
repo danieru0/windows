@@ -6,6 +6,7 @@ import { getLocalStorageJSON } from './store/actions/localStorage';
 import LoadingScreen from './components/loadingScreen/loadingScreen';
 import Files from './components/files/Files';
 import Programs from './components/programs/Programs';
+import Taskbar from './components/taskbar/Taskbar';
 
 import './App.css';
 
@@ -22,6 +23,7 @@ class App extends Component {
         <div style={{ backgroundImage: `url(${data.wallpapers.active})` }} className="App">
           <Files files={data.files} />
           <Programs />
+          <Taskbar />
         </div>
       ) : (
         <LoadingScreen />

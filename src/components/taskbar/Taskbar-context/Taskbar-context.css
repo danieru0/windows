@@ -1,0 +1,40 @@
+.taskbar__context {
+    width: 200px;
+    height: 350px;
+    background: rgba(0,0,0,0.9);
+    position: absolute;
+    bottom: 50px;
+}
+
+.taskbar__context-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.taskbar__context-btn {
+    width: 100%;
+    height: 60px;
+    background: none;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-bottom: 1px solid grey;
+    cursor: pointer;
+    outline: none;
+}
+
+.taskbar__context-btn:hover {
+    background: #222;
+}
+
+.taskbar__context-icon {
+    font-size: 30px;
+    margin-right: 15px;
+}
+
+.taskbar__context-text {
+    font-size: 18px;
+    margin: 0;
+}

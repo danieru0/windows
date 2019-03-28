@@ -24,6 +24,7 @@ export const initLocalStorageJSON = () => {
                 active: 'https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-633064.jpg',
                 0: 'https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-633064.jpg'
             },
+            taskbarContext: false,
             files: {
                 0: {
                     name: 'Plik testowy',
