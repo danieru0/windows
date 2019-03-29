@@ -4,7 +4,7 @@ import Draggable from 'react-draggable';
 
 
 import { saveNotepadState } from '../../../store/actions/notepadProgram';
-import { removeRunningAppFromLocalStorage, saveProgramPosition } from '../../../store/actions/localStorage';
+import { removeRunningAppFromLocalStorage, saveProgramPosition, toggleMinimalizeApp } from '../../../store/actions/localStorage';
 
 import './Notepad.css';
 
@@ -15,6 +15,10 @@ class Notepad extends Component {
 
     handleCloseButton = () => {
         this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.appData.index);
+    }
+
+    handleMinimalizeButton = () => {
+        this.props.toggleMinimalizeApp(this.props.applications, this.props.appData.index);
     }
 
     handleDrag = e => {
@@ -49,7 +53,7 @@ class Notepad extends Component {
 
         return (
             <Draggable defaultPosition={defaultPosition} onDrag={(e) => {this.makeFirst(e); this.handleDrag(e)}} handle=".notepad__topbar" bounds="body">
-                <div ref={r => this.notepad = r} onBlur={this.removeFirst} onFocus={this.makeFirst} className="notepad">
+                <div ref={r => this.notepad = r} onBlur={this.removeFirst} onFocus={this.makeFirst} className={appData.minimalized ? "notepad minimalized" : "notepad"}>
                     <div className="notepad__topbar">
                         <div className="notepad__options">
                             <button className="notepad__btn btn-save" onClick={this.saveNotepadText}>
@@ -67,6 +71,9 @@ class Notepad extends Component {
                         </div>
                         <span className="notepad__name">{appData.name}</span>
                         <div className="notepad__program-options">
+                            <button onClick={this.handleMinimalizeButton} className="notepad__minimalize">
+                                <span className="notepad__minimalize-icon fa fa-window-minimize"></span>
+                            </button>                            
                             <button onClick={this.handleCloseButton} className="notepad__close">
                                 <span className="notepad__close-icon fa fa-times"></span>
                             </button>
@@ -86,4 +93,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { removeRunningAppFromLocalStorage, saveProgramPosition, saveNotepadState })(Notepad);
+export default connect(mapStateToProps, { removeRunningAppFromLocalStorage, saveProgramPosition, saveNotepadState, toggleMinimalizeApp })(Notepad);

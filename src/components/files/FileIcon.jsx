@@ -18,7 +18,7 @@ class FileIcon extends Component {
             x: xPosition ? xPosition : null,
             y: yPosition ? yPosition : null
         }
-
+        
         return (
             <Draggable defaultPosition={defaultPosition}  onDrag={this.handleDrag} bounds="body">
                 <div className="file">

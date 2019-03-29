@@ -112,11 +112,14 @@ export const addRunningAppToLocalStorage = (runningApps, app) => {
         let lastValue = parseInt(Object.keys(runningApps.active)[Object.keys(runningApps.active).length - 1]);
         if (app.index !== lastValue) {
             runningApps.active[app.index] = app;
+            runningApps.active[app.index].minimalized = false;
             localStorage.setItem('running', JSON.stringify(runningApps));
             dispatch({
                 type: 'ADD_RUNNING_APP_SUCCESS',
                 data: JSON.parse(localStorage.getItem('running'))
             });
+        } else {
+            dispatch(toggleMinimalizeApp(runningApps, app.index));
         }
     }
 }
@@ -127,6 +130,17 @@ export const removeRunningAppFromLocalStorage = (runningApps, appIndex) => {
         localStorage.setItem('running', JSON.stringify(runningApps));
         dispatch({
             type: 'REMOVE_RUNNING_APP_SUCCESS',
+            data: JSON.parse(localStorage.getItem('running'))
+        })
+    }
+}
+
+export const toggleMinimalizeApp = (runningApps, appIndex) => {
+    return dispatch => {
+        runningApps.active[appIndex].minimalized = !runningApps.active[appIndex].minimalized;
+        localStorage.setItem('running', JSON.stringify(runningApps));
+        dispatch({
+            type: 'TOGGLE_MINIMALIZE_APP_SUCCESS',
             data: JSON.parse(localStorage.getItem('running'))
         })
     }

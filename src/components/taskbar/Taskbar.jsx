@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { toggleTaskbarContextMenu } from '../../store/actions/taskbar';
+import { toggleMinimalizeApp } from '../../store/actions/localStorage';
 
 import TaskbarContext from './Taskbar-context/Taskbar-context';
 
@@ -15,6 +16,10 @@ class Taskbar extends Component {
 
     clickedOutside = value => {
         this.props.toggleTaskbarContextMenu(value);
+    }
+
+    handleTaskbarFileClick = index => {
+        this.props.toggleMinimalizeApp(this.props.applications, index);
     }
 
     render() {
@@ -32,7 +37,7 @@ class Taskbar extends Component {
                         Object.keys(applications.active).map((item, key) => {
                             let file = applications.active[item];
                             return (
-                                <div onClick={this.handleTaskbarFileClick} title={file.name} key={key} className="taskbar__file">
+                                <div onClick={() => this.handleTaskbarFileClick(file.index)} title={file.name} key={key} className="taskbar__file">
                                     <img className="taskbar__file-icon" alt="" src={file.background}></img>
                                 </div>
                             )
@@ -53,4 +58,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { toggleTaskbarContextMenu })(Taskbar);
+export default connect(mapStateToProps, { toggleTaskbarContextMenu, toggleMinimalizeApp })(Taskbar);

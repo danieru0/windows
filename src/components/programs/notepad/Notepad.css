@@ -8,6 +8,10 @@
     border: 1px solid #000000;
 }
 
+.notepad.minimalized {
+    display: none;
+}
+
 .notepad.active {
     z-index: 999;
 }
@@ -77,6 +81,17 @@
 .notepad__close {
     border: none;
     background: #ff0000;
+    color: #ffffff;
+    width: 40px;
+    height: 20px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.notepad__minimalize {
+    border: none;
+    background: blue;
     color: #ffffff;
     width: 40px;
     height: 20px;

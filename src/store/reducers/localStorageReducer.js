@@ -39,6 +39,11 @@ export default (state = initState, action) => {
                 ...state,
                 apps: action.data
             }
+        case 'TOGGLE_MINIMALIZE_APP_SUCCESS':
+            return {
+                ...state,
+                apps: action.data
+            }
         default: return state;
     }
 }
