@@ -37,7 +37,7 @@ class Taskbar extends Component {
                         Object.keys(applications.active).map((item, key) => {
                             let file = applications.active[item];
                             return (
-                                <div onClick={() => this.handleTaskbarFileClick(file.index)} title={file.name} key={key} className="taskbar__file">
+                                <div onClick={() => this.handleTaskbarFileClick(file.index)} id={item} title={file.name} key={key} className="taskbar__file">
                                     <img className="taskbar__file-icon" alt="" src={file.background}></img>
                                 </div>
                             )

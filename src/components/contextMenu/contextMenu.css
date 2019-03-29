@@ -1,0 +1,17 @@
+.contextMenu {
+    position: absolute;
+    z-index: 9999999;
+}
+
+.contextMenu__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.contextMenu__item {
+    background: #000000;
+    color: #ffffff;
+    padding: 15px;
+    cursor: pointer;
+}
