@@ -66,7 +66,7 @@ class App extends Component {
           <Files files={data.files} />
           <Programs />
           <Taskbar />
-          <ContextMenu active={this.state.contextMenuActive} clickedElement={this.state.clickedElement} left={this.state.contextMenuLeft} top={this.state.contextMenuTop}/>
+          <ContextMenu handleClickedItem={() => this.setState({ contextMenuActive: false })} active={this.state.contextMenuActive} clickedElement={this.state.clickedElement} left={this.state.contextMenuLeft} top={this.state.contextMenuTop}/>
         </div>
       ) : (
         <LoadingScreen />

@@ -15,3 +15,7 @@
     padding: 15px;
     cursor: pointer;
 }
+
+.contextMenu__item:hover {
+    background: #333;
+}

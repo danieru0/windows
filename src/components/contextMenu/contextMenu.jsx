@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { createNewTxtFile } from '../../store/actions/contextMenu';
 
 import './contextMenu.css';
 
 class ContextMenu extends Component {
 
+    createNewTxtFile = () => {
+        this.props.createNewTxtFile(this.props.data);
+        this.props.handleClickedItem();
+    }
+
     render() {
         const { active, clickedElement, left, top } = this.props;
-        
+
         if (!active) {
             return false;
         }
@@ -20,7 +28,7 @@ class ContextMenu extends Component {
                                 <li onClick={() => alert('clicked')} className="contextMenu__item">
                                     New anchor file
                                 </li>
-                                <li className="contextMenu__item">
+                                <li onClick={this.createNewTxtFile} className="contextMenu__item">
                                     New txt file
                                 </li>
                             </>
@@ -59,4 +67,10 @@ class ContextMenu extends Component {
     }
 }
 
-export default ContextMenu;
+const mapStateToProps = state => {
+    return {
+        data: state.localStorage.data
+    }
+}
+
+export default connect(mapStateToProps, { createNewTxtFile })(ContextMenu);

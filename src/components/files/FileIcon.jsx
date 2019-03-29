@@ -15,8 +15,8 @@ class FileIcon extends Component {
     render() {
         const { name, background, index, xPosition, yPosition } = this.props;
         const defaultPosition = {
-            x: xPosition ? xPosition : null,
-            y: yPosition ? yPosition : null
+            x: xPosition ? xPosition : 0,
+            y: yPosition ? yPosition : 0
         }
         
         return (

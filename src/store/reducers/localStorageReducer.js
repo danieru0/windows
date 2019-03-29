@@ -44,6 +44,11 @@ export default (state = initState, action) => {
                 ...state,
                 apps: action.data
             }
+        case 'CREATE_TXT_FILE_SUCCESS': //From contextMenu.js
+            return {
+                ...state,
+                data: action.data
+            }
         default: return state;
     }
 }
