@@ -1,0 +1,85 @@
+.link {
+    width: 700px;
+    height: 200px;
+    background: #ffffff;
+    border: 1px solid #000000;
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+}
+
+.link.minimalized {
+    display: none;
+}
+
+.link__topbar {
+    width: 700px;
+    height: 50px;
+    background: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+}
+
+.link__name {
+    color: grey;
+}
+
+.link__program-options {
+    margin-top: -3px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+
+.link__close {
+    border: none;
+    background: #ff0000;
+    color: #ffffff;
+    width: 40px;
+    height: 20px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.link__minimalize {
+    border: none;
+    background: blue;
+    color: #ffffff;
+    width: 40px;
+    height: 20px;
+    outline: none;
+    cursor: pointer;
+}
+
+.link__content {
+    height: calc(100% - 50px);
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.link__input-group {
+    margin: 10px 0px;
+}
+
+.link__label {
+    margin-right: 5px;
+    margin-bottom: 1px;
+}
+
+.link__input {
+    width: 300px;
+}
+
+.link__btn {
+    margin-top: 10px;
+    height: 30px;
+    width: 100px;
+    cursor: pointer;
+}

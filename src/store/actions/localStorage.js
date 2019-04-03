@@ -113,6 +113,8 @@ export const addRunningAppToLocalStorage = (runningApps, app) => {
         if (app.index !== lastValue) {
             runningApps.active[app.index] = app;
             runningApps.active[app.index].minimalized = false;
+            runningApps.active[app.index].xPosition = null;
+            runningApps.active[app.index].yPosition = null;
             localStorage.setItem('running', JSON.stringify(runningApps));
             dispatch({
                 type: 'ADD_RUNNING_APP_SUCCESS',

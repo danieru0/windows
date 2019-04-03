@@ -40,15 +40,15 @@ class Notepad extends Component {
         this.notepad.classList.add('active');
     }
 
-    removeFirst = e => {
+    removeFirst = () => {
         this.notepad.classList.remove('active');
     }
 
     render() {
-        const { appData } = this.props;
+        const { appData, applications } = this.props;
         const defaultPosition = {
-            x: appData.xPosition ? appData.xPosition : null,
-            y: appData.yPosition ? appData.yPosition : null
+            x: applications.active[appData.index].xPosition ? applications.active[appData.index].xPosition : 0,
+            y: applications.active[appData.index].yPosition ? applications.active[appData.index].yPosition : 0
         }
 
         return (

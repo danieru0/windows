@@ -65,8 +65,8 @@ class App extends Component {
         <div style={{ backgroundImage: `url(${data.wallpapers.active})` }} className="App">
           <Files files={data.files} />
           <Programs />
-          <Taskbar />
           <ContextMenu handleClickedItem={() => this.setState({ contextMenuActive: false })} active={this.state.contextMenuActive} clickedElement={this.state.clickedElement} left={this.state.contextMenuLeft} top={this.state.contextMenuTop}/>
+          <Taskbar />
         </div>
       ) : (
         <LoadingScreen />
