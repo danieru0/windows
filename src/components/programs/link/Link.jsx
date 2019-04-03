@@ -3,10 +3,18 @@ import Draggable from 'react-draggable';
 import { connect } from 'react-redux';
 
 import { removeRunningAppFromLocalStorage, toggleMinimalizeApp } from '../../../store/actions/localStorage';
+import { createNewLinkFile } from '../../../store/actions/linkProgram';
 
 import './Link.css';
 
 class Link extends Component {
+    constructor() {
+        super();
+        this.state = {
+            link: null,
+            icon: null
+        }
+    }
 
     handleCloseButton = () => {
         this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.index)
@@ -14,6 +22,22 @@ class Link extends Component {
 
     handleMinimalizeButton = () => {
         this.props.toggleMinimalizeApp(this.props.applications, this.props.index);
+    }
+
+    handleInputChange = e => {
+        console.log(e.target.id);
+        this.setState({
+            [e.target.id]: e.target.value
+        });
+    }
+
+    handleBtnClick = () => {
+        if (this.state.link) {
+            this.props.createNewLinkFile(this.props.data, this.state.link, this.state.icon);
+            this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.index);
+        } else {
+            alert('You need provide link!');
+        }
     }
 
     render() {
@@ -34,14 +58,14 @@ class Link extends Component {
                     </div>
                     <div className="link__content">
                         <div className="link__input-group">
-                            <label className="link__label" htmlFor="Link">Link: </label>
-                            <input className="link__input" placeholder="Link url" id="Link"></input>
+                            <label className="link__label" htmlFor="link">Link: </label>
+                            <input onChange={this.handleInputChange} className="link__input" placeholder="Link url" id="link"></input>
                         </div>
                         <div className="link__input-group">
-                            <label className="link__label" htmlFor="Icon">Icon image: </label>
-                            <input className="link__input" placeholder="Image url" id="Icon"></input>
+                            <label className="link__label" htmlFor="icon">Icon image: </label>
+                            <input onChange={this.handleInputChange} className="link__input" placeholder="Image url" id="icon"></input>
                         </div>
-                        <button className="link__btn">Create</button>
+                        <button onClick={this.handleBtnClick} className="link__btn">Create</button>
                     </div>
                 </div>
             </Draggable>
@@ -51,8 +75,9 @@ class Link extends Component {
 
 const mapStateToProps = state => {
     return {
+        data: state.localStorage.data,
         applications: state.localStorage.apps
     }
 }
 
-export default connect(mapStateToProps, { removeRunningAppFromLocalStorage, toggleMinimalizeApp })(Link);
+export default connect(mapStateToProps, { removeRunningAppFromLocalStorage, toggleMinimalizeApp, createNewLinkFile })(Link);
