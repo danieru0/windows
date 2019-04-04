@@ -49,6 +49,11 @@ export default (state = initState, action) => {
                 ...state,
                 data: action.data
             }
+        case 'CHANGE_APP_NAME_SUCCESS':
+            return {
+                ...state,
+                data: action.data
+            }
         default: return state;
     }
 }

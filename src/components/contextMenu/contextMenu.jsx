@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { changeFileName } from '../../store/actions/localStorage';
 import { createNewTxtFile } from '../../store/actions/contextMenu';
 import { runLinkApplication } from '../../store/actions/linkProgram';
 
@@ -18,8 +19,17 @@ class ContextMenu extends Component {
         this.props.handleClickedItem();
     }
 
+    renameFile = () => {
+        this.props.handleClickedItem();
+        let newFileName = prompt('New file name:');
+
+        if (newFileName !== null) {
+            this.props.changeFileName(this.props.data, newFileName, this.props.clickedElementId);
+        }
+    }
+
     render() {
-        const { active, clickedElement, left, top } = this.props;
+        const { active, clickedElement, left, top } = this.props
 
         if (!active) {
             return false;
@@ -45,7 +55,7 @@ class ContextMenu extends Component {
                     {
                         clickedElement.className === 'file__overlay' ? (
                             <>
-                                <li className="contextMenu__item">
+                                <li onClick={this.renameFile} className="contextMenu__item">
                                     Rename file
                                 </li>
                                 <li className="contextMenu__item">
@@ -80,4 +90,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { createNewTxtFile, runLinkApplication })(ContextMenu);
+export default connect(mapStateToProps, { createNewTxtFile, runLinkApplication, changeFileName })(ContextMenu);

@@ -17,7 +17,6 @@ export const runLinkApplication = (runningApps) => {
 }
 
 export const createNewLinkFile = (data, link, icon) => {
-    console.log(icon);
     return dispatch => {
         let lastValue = parseInt(Object.keys(data.files)[Object.keys(data.files).length - 1]);
         data.files[lastValue + 1] = {

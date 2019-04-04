@@ -160,3 +160,13 @@ export const saveProgramPosition = (runningApps, xPosition, yPosition, appIndex)
     }
 }
 
+export const changeFileName = (data, name, appIndex) => {
+    return dispatch => {
+        data.files[appIndex].name = name;
+        localStorage.setItem('app', JSON.stringify(data));
+        dispatch({
+            type: 'CHANGE_APP_NAME_SUCCESS',
+            data: JSON.parse(localStorage.getItem('app'))
+        })
+    }
+}

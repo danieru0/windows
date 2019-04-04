@@ -25,7 +25,6 @@ class Link extends Component {
     }
 
     handleInputChange = e => {
-        console.log(e.target.id);
         this.setState({
             [e.target.id]: e.target.value
         });

@@ -18,7 +18,8 @@ class App extends Component {
       contextMenuActive: false,
       contextMenuLeft: null,
       contextMenuTop: null,
-      clickedElement: ''
+      clickedElement: '',
+      clickedElementId: null
     }
   }
 
@@ -36,14 +37,16 @@ class App extends Component {
           contextMenuActive: true,
           contextMenuLeft: e.clientX,
           contextMenuTop: e.clientY,
-          clickedElement: e.target
+          clickedElement: e.target,
+          clickedElementId: e.target.id
         });
       } else if (e.target.className === 'taskbar__file-icon') {
         this.setState({
           contextMenuActive: true,
           contextMenuLeft: e.clientX,
           contextMenuTop: e.clientY,
-          clickedElement: e.target.parentElement
+          clickedElement: e.target.parentElement,
+          clickedElementId: e.target.id
         });
       }
 
@@ -65,7 +68,7 @@ class App extends Component {
         <div style={{ backgroundImage: `url(${data.wallpapers.active})` }} className="App">
           <Files files={data.files} />
           <Programs />
-          <ContextMenu handleClickedItem={() => this.setState({ contextMenuActive: false })} active={this.state.contextMenuActive} clickedElement={this.state.clickedElement} left={this.state.contextMenuLeft} top={this.state.contextMenuTop}/>
+          <ContextMenu handleClickedItem={() => this.setState({ contextMenuActive: false })} active={this.state.contextMenuActive} clickedElement={this.state.clickedElement} clickedElementId={this.state.clickedElementId} left={this.state.contextMenuLeft} top={this.state.contextMenuTop}/>
           <Taskbar />
         </div>
       ) : (
