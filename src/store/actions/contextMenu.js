@@ -1,7 +1,7 @@
 export const createNewTxtFile = data => {
     return dispatch => {
         let lastValue = parseInt(Object.keys(data.files)[Object.keys(data.files).length - 1]);
-        data.files[lastValue + 1] = {
+        data.files[isNaN(lastValue) ? 0 : lastValue + 1] = {
             name: 'Text file',
             type: 'txt',
             background: 'http://icons.iconarchive.com/icons/pelfusion/flat-file-type/256/txt-icon.png',

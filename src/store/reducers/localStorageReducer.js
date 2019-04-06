@@ -54,6 +54,11 @@ export default (state = initState, action) => {
                 ...state,
                 data: action.data
             }
+        case 'REMOVE_FILE_SUCCESS':
+            return {
+                ...state,
+                data: action.data
+            }
         default: return state;
     }
 }

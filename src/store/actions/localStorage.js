@@ -128,6 +128,7 @@ export const addRunningAppToLocalStorage = (runningApps, app) => {
 
 export const removeRunningAppFromLocalStorage = (runningApps, appIndex) => {
     return dispatch => {
+        console.log(runningApps.active[appIndex]);
         delete runningApps.active[appIndex];
         localStorage.setItem('running', JSON.stringify(runningApps));
         dispatch({
@@ -166,6 +167,17 @@ export const changeFileName = (data, name, appIndex) => {
         localStorage.setItem('app', JSON.stringify(data));
         dispatch({
             type: 'CHANGE_APP_NAME_SUCCESS',
+            data: JSON.parse(localStorage.getItem('app'))
+        })
+    }
+}
+
+export const removeFile = (data, appIndex) => {
+    return dispatch => {
+        delete data.files[appIndex];
+        localStorage.setItem('app', JSON.stringify(data));
+        dispatch({
+            type: 'REMOVE_FILE_SUCCESS',
             data: JSON.parse(localStorage.getItem('app'))
         })
     }

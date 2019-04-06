@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { changeFileName } from '../../store/actions/localStorage';
+import { changeFileName, removeFile, removeRunningAppFromLocalStorage } from '../../store/actions/localStorage';
 import { createNewTxtFile } from '../../store/actions/contextMenu';
 import { runLinkApplication } from '../../store/actions/linkProgram';
 
@@ -26,6 +26,16 @@ class ContextMenu extends Component {
         if (newFileName !== null) {
             this.props.changeFileName(this.props.data, newFileName, this.props.clickedElementId);
         }
+    }
+
+    removeFile = () => {
+        this.props.handleClickedItem();
+        this.props.removeFile(this.props.data, this.props.clickedElementId);
+    }
+
+    closeProgram = () => {
+        this.props.handleClickedItem();
+        this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.clickedElementId);
     }
 
     render() {
@@ -58,7 +68,7 @@ class ContextMenu extends Component {
                                 <li onClick={this.renameFile} className="contextMenu__item">
                                     Rename file
                                 </li>
-                                <li className="contextMenu__item">
+                                <li onClick={this.removeFile} className="contextMenu__item">
                                     Delete file
                                 </li>
                             </>
@@ -69,7 +79,7 @@ class ContextMenu extends Component {
                     {
                         clickedElement.className === 'taskbar__file' ? (
                             <>
-                                <li className="contextMenu__item">
+                                <li onClick={this.closeProgram} className="contextMenu__item">
                                     Close file
                                 </li>
                             </>
@@ -90,4 +100,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { createNewTxtFile, runLinkApplication, changeFileName })(ContextMenu);
+export default connect(mapStateToProps, { createNewTxtFile, runLinkApplication, changeFileName, removeFile, removeRunningAppFromLocalStorage })(ContextMenu);

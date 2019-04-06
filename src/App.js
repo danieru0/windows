@@ -46,7 +46,7 @@ class App extends Component {
           contextMenuLeft: e.clientX,
           contextMenuTop: e.clientY,
           clickedElement: e.target.parentElement,
-          clickedElementId: e.target.id
+          clickedElementId: e.target.parentElement.id
         });
       }
 

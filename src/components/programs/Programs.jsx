@@ -12,7 +12,7 @@ class Programs extends Component {
     }
 
     render() {
-        const { applications, linkAppActivate } = this.props
+        const { applications } = this.props
         return (
             <>
                 {
@@ -33,13 +33,6 @@ class Programs extends Component {
                                 ''
                             )
                         })
-                    ) : (
-                        ''
-                    )
-                }
-                {
-                    linkAppActivate ? (
-                        <Link />
                     ) : (
                         ''
                     )
