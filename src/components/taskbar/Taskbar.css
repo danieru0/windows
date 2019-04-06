@@ -37,3 +37,21 @@
     width: 42px;
     height: 42px;
 }
+
+.taskbar__time {
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-left: 1px dotted grey;
+    position: absolute;
+    right: 0px;
+    width: 100px;
+    height: 51px;
+}
+
+.taskbar__time-p {
+    margin: 0;
+    font-size: 14px;
+}

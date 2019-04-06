@@ -9,6 +9,25 @@ import TaskbarContext from './Taskbar-context/Taskbar-context';
 import './Taskbar.css';
 
 class Taskbar extends Component {
+    constructor() {
+        super();
+        this.state = {
+            time: new Date().toLocaleTimeString(),
+            date: new Date().toLocaleDateString()
+        }
+    }
+
+    componentDidMount() {
+        this.clockInterval = setInterval(() => {
+            this.setState({
+                time: new Date().toLocaleTimeString()
+            });
+        }, 1000)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.clockInterval);
+    }
 
     toggleContextMenu = () => {
         this.props.toggleTaskbarContextMenu(!this.props.contextMenu);
@@ -46,6 +65,10 @@ class Taskbar extends Component {
                         ''
                     )
                 }
+                <div className="taskbar__time">
+                    <p className="taskbar__time-p">{`${this.state.time.split(':')[0]}:${this.state.time.split(':')[1]}`}</p>
+                    <p className="taskbar__time-p">{this.state.date.split('.').join('-')}</p>
+                </div>
             </div>
         )
     }
