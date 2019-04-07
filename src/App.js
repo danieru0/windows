@@ -9,6 +9,7 @@ import Files from './components/files/Files';
 import Programs from './components/programs/Programs';
 import Taskbar from './components/taskbar/Taskbar';
 import ContextMenu from './components/contextMenu/contextMenu';
+import MusicPlayer from './components/programs/musicPlayer/MusicPlayer';
 
 import './App.css';
 
@@ -89,8 +90,7 @@ class App extends Component {
       data ? (
         <div style={{ backgroundImage: `url(${data.wallpapers.active})` }} className="App">
           <input name="audio" onChange={this.handleInputFileChange} style={{display: 'none'}} type="file" id="audioInput"></input>
-          <button onClick={this.runMusic}>run</button>
-          <audio id="music"></audio>
+          <MusicPlayer />
           <Files files={data.files} />
           <Programs />
           <ContextMenu openInputFile={this.openInputFile} handleClickedItem={() => this.setState({ contextMenuActive: false })} active={this.state.contextMenuActive} clickedElement={this.state.clickedElement} clickedElementId={this.state.clickedElementId} left={this.state.contextMenuLeft} top={this.state.contextMenuTop}/>
