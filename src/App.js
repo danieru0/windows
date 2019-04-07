@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { getLocalStorageJSON } from './store/actions/localStorage';
+import { createNewAudioFile } from './store/actions/musicPlayer';
 
 import LoadingScreen from './components/loadingScreen/loadingScreen';
 import Files from './components/files/Files';
@@ -60,10 +61,10 @@ class App extends Component {
   }
 
   handleInputFileChange = e => {
+    const file = e.target.files[0];
     const reader = new FileReader();
-
-    reader.onload = function() {
-      localStorage.setItem('audio', this.result);
+    reader.onload = e => {
+      this.props.createNewAudioFile(this.props.data, file.name, e.target.result);
     }
     reader.readAsDataURL(e.target.files[0]);
   }
@@ -71,7 +72,7 @@ class App extends Component {
   openInputFile = action => {
     switch(action) {
       case 'mp3':
-        document.getElementById('inputFile').click();
+        document.getElementById('audioInput').click();
       break;
       default: break;
     }
@@ -87,7 +88,7 @@ class App extends Component {
     return (
       data ? (
         <div style={{ backgroundImage: `url(${data.wallpapers.active})` }} className="App">
-          <input onChange={this.handleInputFileChange} style={{display: 'none'}} type="file" id="inputFile"></input>
+          <input name="audio" onChange={this.handleInputFileChange} style={{display: 'none'}} type="file" id="audioInput"></input>
           <button onClick={this.runMusic}>run</button>
           <audio id="music"></audio>
           <Files files={data.files} />
@@ -108,4 +109,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getLocalStorageJSON })(App);
+export default connect(mapStateToProps, { getLocalStorageJSON, createNewAudioFile })(App);

@@ -5,6 +5,11 @@ const initState = {
 
 export default (state = initState, action) => {
     switch(action.type) {
+        case 'REFRESH_DATA':
+            return {
+                ...state,
+                data: action.data
+            }
         case 'GET_LOCAL_STORAGE_SUCCESS':
             return {
                 ...state,
