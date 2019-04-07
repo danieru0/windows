@@ -133,6 +133,7 @@
     font-size: 40px;
     cursor: pointer;
     margin-right: 5px;
+    outline: none;
 }
 
 .musicplayer__repeat {
@@ -142,6 +143,7 @@
     font-size: 30px;
     cursor: pointer;
     margin-left: 5px;
+    outline: none;
 }
 
 /* CREATED USING RANGE.CSS */

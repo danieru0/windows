@@ -141,7 +141,6 @@ export const addRunningAppToLocalStorage = (runningApps, app) => {
 
 export const removeRunningAppFromLocalStorage = (runningApps, appIndex) => {
     return dispatch => {
-        console.log(runningApps.active[appIndex]);
         delete runningApps.active[appIndex];
         localStorage.setItem('running', JSON.stringify(runningApps));
         dispatch({

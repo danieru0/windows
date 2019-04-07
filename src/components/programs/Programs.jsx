@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Notepad from './notepad/Notepad';
 import Link from '../../components/programs/link/Link';
+import MusicPlayer from '../../components/programs/musicPlayer/MusicPlayer';
 
 import { getRunningApplications } from '../../store/actions/localStorage';
 
@@ -27,6 +28,11 @@ class Programs extends Component {
                             if (app.type === 'link') {
                                 return (
                                     <Link minimalized={app.minimalized} index={app.index} key={item} />
+                                )
+                            }
+                            if (app.type === 'audio') {
+                                return (
+                                    <MusicPlayer appData={app} key={item} />
                                 )
                             }
                             return (
