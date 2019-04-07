@@ -9,4 +9,6 @@
     flex-wrap: wrap;
     align-content: flex-start;
     overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
 }

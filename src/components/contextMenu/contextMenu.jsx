@@ -8,7 +8,12 @@ import { runLinkApplication } from '../../store/actions/linkProgram';
 import './contextMenu.css';
 
 class ContextMenu extends Component {
-
+    constructor() {
+        super();
+        this.state = {
+            mp3file: null
+        }
+    }
     createNewTxtFile = () => {
         this.props.createNewTxtFile(this.props.data);
         this.props.handleClickedItem();
@@ -56,6 +61,9 @@ class ContextMenu extends Component {
                                 </li>
                                 <li onClick={this.createNewTxtFile} className="contextMenu__item">
                                     New txt file
+                                </li>
+                                <li onClick={() => {this.props.openInputFile('mp3'); this.props.handleClickedItem();}} className="contextMenu__item">
+                                    Import mp3 file
                                 </li>
                             </>
                         ) : (

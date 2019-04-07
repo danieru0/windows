@@ -23,8 +23,6 @@ class App extends Component {
     }
   }
 
-
-
   componentDidMount() {
     this.props.getLocalStorageJSON();
     document.addEventListener('contextmenu', (e) => {
@@ -61,14 +59,40 @@ class App extends Component {
     });
   }
 
+  handleInputFileChange = e => {
+    const reader = new FileReader();
+
+    reader.onload = function() {
+      localStorage.setItem('audio', this.result);
+    }
+    reader.readAsDataURL(e.target.files[0]);
+  }
+
+  openInputFile = action => {
+    switch(action) {
+      case 'mp3':
+        document.getElementById('inputFile').click();
+      break;
+      default: break;
+    }
+  }
+
+  runMusic = () => {
+    let audio = new Audio(localStorage.getItem('audio'));
+    audio.play();
+  }
+
   render() {
     const { data } = this.props;
     return (
       data ? (
         <div style={{ backgroundImage: `url(${data.wallpapers.active})` }} className="App">
+          <input onChange={this.handleInputFileChange} style={{display: 'none'}} type="file" id="inputFile"></input>
+          <button onClick={this.runMusic}>run</button>
+          <audio id="music"></audio>
           <Files files={data.files} />
           <Programs />
-          <ContextMenu handleClickedItem={() => this.setState({ contextMenuActive: false })} active={this.state.contextMenuActive} clickedElement={this.state.clickedElement} clickedElementId={this.state.clickedElementId} left={this.state.contextMenuLeft} top={this.state.contextMenuTop}/>
+          <ContextMenu openInputFile={this.openInputFile} handleClickedItem={() => this.setState({ contextMenuActive: false })} active={this.state.contextMenuActive} clickedElement={this.state.clickedElement} clickedElementId={this.state.clickedElementId} left={this.state.contextMenuLeft} top={this.state.contextMenuTop}/>
           <Taskbar />
         </div>
       ) : (

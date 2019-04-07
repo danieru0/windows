@@ -23,7 +23,7 @@ export const createNewLinkFile = (data, link, icon) => {
             name: 'Link file',
             type: 'link',
             background: icon ? icon : 'https://img.icons8.com/flat_round/64/000000/link.png',
-            index: lastValue + 1,
+            index: isNaN(lastValue) ? 0 : lastValue + 1,
             href: link,
             xPosition: null,
             yPosition: null

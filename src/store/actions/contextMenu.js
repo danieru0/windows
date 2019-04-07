@@ -6,7 +6,7 @@ export const createNewTxtFile = data => {
             type: 'txt',
             background: 'http://icons.iconarchive.com/icons/pelfusion/flat-file-type/256/txt-icon.png',
             text: '',
-            index: lastValue + 1,
+            index: isNaN(lastValue) ? 0 : lastValue + 1,
             xPosition: null,
             yPosition: null
         }

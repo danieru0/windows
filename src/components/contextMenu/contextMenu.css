@@ -19,3 +19,7 @@
 .contextMenu__item:hover {
     background: #333;
 }
+
+.contextMenu__input {
+    display: none;
+}
