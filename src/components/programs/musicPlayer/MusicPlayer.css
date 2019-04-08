@@ -14,6 +14,7 @@
     position: absolute;
     top: 0;
     overflow: hidden;
+    z-index: 2;
 }
 
 .musicplayer.minimalized {
@@ -148,6 +149,10 @@
     cursor: pointer;
     margin-left: 5px;
     outline: none;
+}
+
+.fa.fa-redo.not-clicked {
+  color: #7f7186;
 }
 
 .musicplayer__volume {

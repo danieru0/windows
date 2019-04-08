@@ -14,7 +14,8 @@ class MusicPlayer extends Component {
             audioDurationUpdate: null,
             audioElement: null,
             audioPause: false,
-            volumeValue: 0.3
+            volumeValue: 0.3,
+            audioLoop: false
         }
     }
 
@@ -93,6 +94,15 @@ class MusicPlayer extends Component {
         })
     }
 
+    toggleLoop = () => {
+        let audioElement = this.state.audioElement;
+        this.setState({
+            audioLoop: !this.state.audioLoop
+        }, () => {
+            audioElement.loop = this.state.audioLoop;
+        });
+    }
+
     render() {
         const { appData } = this.props;
         return (
@@ -128,8 +138,8 @@ class MusicPlayer extends Component {
                                     this.state.audioPause ? <span className="fa fa-play"></span> : <span className="fa fa-pause"></span>
                                 }
                             </button>
-                            <button className="musicplayer__repeat">
-                                <span className="fa fa-redo"></span>
+                            <button onClick={this.toggleLoop} className="musicplayer__repeat">
+                                <span className={this.state.audioLoop ? "fa fa-redo" : "fa fa-redo not-clicked"}></span>
                             </button>
                         </div>
                         <div className="musicplayer__volume">
