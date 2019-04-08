@@ -16,6 +16,10 @@
     overflow: hidden;
 }
 
+.musicplayer.minimalized {
+  display: none;
+}
+
 .musicplayer__topbar {
     width: 300px;
     height: 50px;

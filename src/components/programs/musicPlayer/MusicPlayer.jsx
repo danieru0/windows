@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Draggable from 'react-draggable';
+import { connect } from 'react-redux';
+
+import { removeRunningAppFromLocalStorage, toggleMinimalizeApp } from '../../../store/actions/localStorage';
 
 import './MusicPlayer.css';
 
@@ -26,6 +29,11 @@ class MusicPlayer extends Component {
         return mins + ':' + secs;
     }
 
+    componentWillUnmount() {
+        let audioElement = this.state.audioElement;
+        audioElement.pause();
+    }
+
     componentDidMount() {
         let allAudio = JSON.parse(localStorage.getItem('audio'));
         let audio = document.createElement('audio');
@@ -42,12 +50,22 @@ class MusicPlayer extends Component {
         }
         audio.onchange = () => audio.currentTime = this.inputRange.value;
         audio.ontimeupdate = () => {
-            this.inputRange.value = audio.currentTime;
-            this.setState({
-                audioDurationUpdate: this.convertTime(audio.currentTime)
-            });
+            if (this.inputRange) {
+                this.inputRange.value = audio.currentTime;
+                this.setState({
+                    audioDurationUpdate: this.convertTime(audio.currentTime)
+                });
+            }
         }
         audio.play();
+    }
+
+    handleCloseButton = () => {
+        this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.appData.index);
+    }
+
+    handleMinimalizeButton = () => {
+        this.props.toggleMinimalizeApp(this.props.applications, this.props.appData.index);
     }
 
     handleRangeChange = e => {
@@ -60,7 +78,7 @@ class MusicPlayer extends Component {
         const { appData } = this.props;
         return (
             <Draggable handle=".musicplayer__topbar" bounds="body">
-                <div className="musicplayer">
+                <div className={appData.minimalized ? "musicplayer minimalized" : "musicplayer"}>
                     <div className="musicplayer__topbar">
                         <span className="musicplayer__name">Music Player</span>
                         <div className="musicplayer__program-options">
@@ -100,4 +118,10 @@ class MusicPlayer extends Component {
     }
 }
 
-export default MusicPlayer;
+const mapStateToProps = state => {
+    return {
+        applications: state.localStorage.apps
+    }
+}
+
+export default connect(mapStateToProps, { removeRunningAppFromLocalStorage, toggleMinimalizeApp })(MusicPlayer);
