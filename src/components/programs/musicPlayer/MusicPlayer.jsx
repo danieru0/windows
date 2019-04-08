@@ -12,7 +12,8 @@ class MusicPlayer extends Component {
         this.state = {
             audioDuration: null,
             audioDurationUpdate: null,
-            audioElement: null
+            audioElement: null,
+            audioPause: false
         }
     }
 
@@ -71,7 +72,15 @@ class MusicPlayer extends Component {
     handleRangeChange = e => {
         let audioElement = this.state.audioElement;
         audioElement.currentTime = e.target.value;
-        this.setState({ audioElement: audioElement })
+    }
+
+    musicTrigger = () => {
+        let audioElement = this.state.audioElement;
+        this.setState({
+            audioPause: !this.state.audioPause
+        }, () => {
+            this.state.audioPause ? audioElement.pause() : audioElement.play();
+        })
     }
 
     render() {
@@ -104,8 +113,10 @@ class MusicPlayer extends Component {
                             <span className="musicplayer__time">{this.state.audioDuration}</span>
                         </div>
                         <div className="musicplayer__buttons">
-                            <button className="musicplayer__mainbtn">
-                                <span className="fa fa-pause"></span>
+                            <button onClick={this.musicTrigger} className="musicplayer__mainbtn">
+                                {
+                                    this.state.audioPause ? <span className="fa fa-play"></span> : <span className="fa fa-pause"></span>
+                                }
                             </button>
                             <button className="musicplayer__repeat">
                                 <span className="fa fa-redo"></span>
