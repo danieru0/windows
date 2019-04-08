@@ -13,7 +13,8 @@ class MusicPlayer extends Component {
             audioDuration: null,
             audioDurationUpdate: null,
             audioElement: null,
-            audioPause: false
+            audioPause: false,
+            volumeValue: 0.3
         }
     }
 
@@ -40,6 +41,7 @@ class MusicPlayer extends Component {
         let audio = document.createElement('audio');
         audio.src = allAudio[this.props.appData.index]
         audio.ref = ref => this.audioElement = ref;
+        audio.volume = 0.3;
         this.setState({
             audioElement: audio,
         });
@@ -83,6 +85,14 @@ class MusicPlayer extends Component {
         })
     }
 
+    handleVolumeChange = e => {
+        let audioElement = this.state.audioElement;
+        audioElement.volume = e.target.value;
+        this.setState({
+            volumeValue: e.target.value
+        })
+    }
+
     render() {
         const { appData } = this.props;
         return (
@@ -121,6 +131,10 @@ class MusicPlayer extends Component {
                             <button className="musicplayer__repeat">
                                 <span className="fa fa-redo"></span>
                             </button>
+                        </div>
+                        <div className="musicplayer__volume">
+                            <span className="fa fa-volume-up"></span>
+                            <input className="musicplayer__volume-range" onChange={this.handleVolumeChange} value={this.state.volumeValue} step="0.01" min="0" max="1" type="range"></input>
                         </div>
                     </div>
                 </div>
