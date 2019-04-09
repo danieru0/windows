@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { getLocalStorageJSON } from './store/actions/localStorage';
 import { createNewAudioFile } from './store/actions/musicPlayer';
+import { addVideoToIndexedDB, getSpecificVideo } from './store/actions/videoPlayer';  
 
 import LoadingScreen from './components/loadingScreen/loadingScreen';
 import Files from './components/files/Files';
@@ -63,9 +64,15 @@ class App extends Component {
 
   handleInputFileChange = e => {
     const file = e.target.files[0];
+    const inputType = e.target.id;
     const reader = new FileReader();
     reader.onload = e => {
-      this.props.createNewAudioFile(this.props.data, file.name, e.target.result);
+      if (inputType === 'audioInput') {
+        this.props.createNewAudioFile(this.props.data, file.name, e.target.result);
+      }
+      if (inputType === 'videoInput') {
+        this.props.addVideoToIndexedDB(file.name, e.target.result);
+      }
     }
     reader.readAsDataURL(e.target.files[0]);
   }
@@ -74,22 +81,28 @@ class App extends Component {
     switch(action) {
       case 'mp3':
         document.getElementById('audioInput').click();
-      break;
+        break;
+      case 'mp4':
+        document.getElementById('videoInput').click();
+        break;
       default: break;
     }
   }
 
-  runMusic = () => {
-    let audio = new Audio(localStorage.getItem('audio'));
-    audio.play();
+  runVideo = () => {
+    this.props.getSpecificVideo('2019-04-08-2350-49.mp4');
   }
 
   render() {
-    const { data } = this.props;
+    const { data, video } = this.props;
+    console.log(video);
     return (
       data ? (
         <div style={{ backgroundImage: `url(${data.wallpapers.active})` }} className="App">
           <input name="audio" onChange={this.handleInputFileChange} style={{display: 'none'}} type="file" id="audioInput"></input>
+          <input name="video" onChange={this.handleInputFileChange} style={{display: 'none'}} type="file" id="videoInput"></input>
+          <video controls src={video.base64 ? video.base64 : null} id="video"></video>
+          <button onClick={this.runVideo}>run video</button>
           <StartText />
           <Files files={data.files} />
           <Programs />
@@ -105,8 +118,9 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    data: state.localStorage.data
+    data: state.localStorage.data,
+    video: state.videoPlayer.video
   }
 }
 
-export default connect(mapStateToProps, { getLocalStorageJSON, createNewAudioFile })(App);
+export default connect(mapStateToProps, { getLocalStorageJSON, createNewAudioFile, addVideoToIndexedDB, getSpecificVideo })(App);
