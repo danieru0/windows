@@ -44,3 +44,11 @@ export const getSpecificVideo = index => {
         })
     }
 }
+
+export const clearVideoReducer = () => {
+    return dispatch => {
+        dispatch({
+            type: 'CLEAR_DATA'
+        });
+    }
+}

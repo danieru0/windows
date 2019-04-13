@@ -16,6 +16,15 @@ export default (state = initState, action) => {
                     base64: action.audio.base64
                 }
             }
+        case 'CLEAR_DATA':
+            return {
+                ...initState,
+                music: {
+                    ...initState.music,
+                    title: null,
+                    base64: null
+                }
+            }
         default: return state;
     }
 }

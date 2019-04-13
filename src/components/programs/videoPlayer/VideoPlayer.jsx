@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import { connect } from 'react-redux';
 
-import { getSpecificVideo } from '../../../store/actions/videoPlayer';
+import { getSpecificVideo, clearVideoReducer } from '../../../store/actions/videoPlayer';
 import { removeRunningAppFromLocalStorage, toggleMinimalizeApp } from '../../../store/actions/localStorage';
 
 import './VideoPlayer.css'
@@ -15,6 +15,7 @@ class VideoPlayer extends Component {
 
     componentWillUnmount() {
         document.getElementById('videoElement').src = null;
+        this.props.clearVideoReducer();
     }
 
     handleCloseButton = () => {
@@ -57,4 +58,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getSpecificVideo, removeRunningAppFromLocalStorage, toggleMinimalizeApp })(VideoPlayer);
+export default connect(mapStateToProps, { getSpecificVideo, removeRunningAppFromLocalStorage, toggleMinimalizeApp, clearVideoReducer })(VideoPlayer);

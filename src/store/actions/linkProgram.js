@@ -10,7 +10,7 @@ export const runLinkApplication = (runningApps) => {
         }
         localStorage.setItem('running', JSON.stringify(runningApps));
         dispatch({
-            type: 'ADD_RUNNING_APP_SUCCESS', //Dispatch to localStorage.js
+            type: 'REFRESH_RUNNING_DATA', //Dispatch to localStorage.js
             data: JSON.parse(localStorage.getItem('running'))
         })
     }

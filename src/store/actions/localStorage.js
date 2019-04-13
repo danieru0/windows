@@ -176,9 +176,9 @@ export const removeFile = (data, appIndex) => {
         }
         delete data.files[appIndex];
         localStorage.setItem('app', JSON.stringify(data));
-        dispatch({
+        /*dispatch({
             type: 'REFRESH_DATA',
             data: JSON.parse(localStorage.getItem('app'))
-        });
+        });*/
     }
 }
