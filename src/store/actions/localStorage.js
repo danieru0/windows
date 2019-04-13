@@ -6,7 +6,7 @@ export const getLocalStorageJSON = () => {
 
         if (appJSON) {
             dispatch({
-                type: 'GET_LOCAL_STORAGE_SUCCESS',
+                type: 'REFRESH_DATA',
                 data: appJSON
             });
         } else {
@@ -55,14 +55,6 @@ export const initLocalStorageJSON = () => {
                     background: 'http://icons.iconarchive.com/icons/danleech/simple/256/youtube-icon.png',
                     xPosition: null,
                     yPosition: null
-                },
-                11: {
-                    name: 'BEEP',
-                    type: 'audio',
-                    index: 11,
-                    background: 'https://image.flaticon.com/icons/svg/337/337944.svg',
-                    xPosition: null,
-                    yPosition: null
                 }
             }
         } 
@@ -70,21 +62,11 @@ export const initLocalStorageJSON = () => {
         let applications = {
             musicPlayer: false,
             videoPlayer: false,
-            active: {
-                0: {
-                    name: 'Plik testowy',
-                    type: 'txt',
-                    background: 'http://icons.iconarchive.com/icons/pelfusion/flat-file-type/256/txt-icon.png',
-                    text: 'THIS IS JUST SIMPLE TEXT',
-                    index: 0,
-                    xPosition: null,
-                    yPosition: null
-                }
-            }
+            active: {}
         }
         localStorage.setItem('running', JSON.stringify(applications));
         dispatch({
-            type: 'CREATE_LOCAL_STORAGE_SUCCESS',
+            type: 'REFRESH_DATA',
             data: JSON.parse(localStorage.getItem('app'))
         });
     }
@@ -94,7 +76,7 @@ export const saveChanges = data => {
     return dispatch => {
         localStorage.setItem('app', JSON.stringify(data));
         dispatch({
-            type: 'SAVE_LOCAL_STORAGE_SUCCESS',
+            type: 'REFRESH_DATA',
             data: data
         })
     }
@@ -114,7 +96,7 @@ export const getRunningApplications = () => {
     return dispatch => {
         let apps = JSON.parse(localStorage.getItem('running'));
         dispatch({
-            type: 'GET_RUNNING_APPS_SUCCESS',
+            type: 'REFRESH_RUNNING_DATA',
             data: apps
         });
     }
@@ -130,7 +112,7 @@ export const addRunningAppToLocalStorage = (runningApps, app) => {
             runningApps.active[app.index].yPosition = null;
             localStorage.setItem('running', JSON.stringify(runningApps));
             dispatch({
-                type: 'ADD_RUNNING_APP_SUCCESS',
+                type: 'REFRESH_RUNNING_DATA',
                 data: JSON.parse(localStorage.getItem('running'))
             });
         } else {
@@ -144,7 +126,7 @@ export const removeRunningAppFromLocalStorage = (runningApps, appIndex) => {
         delete runningApps.active[appIndex];
         localStorage.setItem('running', JSON.stringify(runningApps));
         dispatch({
-            type: 'REMOVE_RUNNING_APP_SUCCESS',
+            type: 'REFRESH_RUNNING_DATA',
             data: JSON.parse(localStorage.getItem('running'))
         })
     }
@@ -155,7 +137,7 @@ export const toggleMinimalizeApp = (runningApps, appIndex) => {
         runningApps.active[appIndex].minimalized = !runningApps.active[appIndex].minimalized;
         localStorage.setItem('running', JSON.stringify(runningApps));
         dispatch({
-            type: 'TOGGLE_MINIMALIZE_APP_SUCCESS',
+            type: 'REFRESH_RUNNING_DATA',
             data: JSON.parse(localStorage.getItem('running'))
         })
     }
@@ -167,7 +149,7 @@ export const saveProgramPosition = (runningApps, xPosition, yPosition, appIndex)
         runningApps.active[appIndex].yPosition = yPosition;
         localStorage.setItem('running', JSON.stringify(runningApps));
         dispatch({
-            type: 'SAVE_RUNNING_APP_POSITION_SUCCESS',
+            type: 'REFRESH_RUNNING_DATA',
             data: runningApps
         });
     }
@@ -178,7 +160,7 @@ export const changeFileName = (data, name, appIndex) => {
         data.files[appIndex].name = name;
         localStorage.setItem('app', JSON.stringify(data));
         dispatch({
-            type: 'CHANGE_APP_NAME_SUCCESS',
+            type: 'REFRESH_DATA',
             data: JSON.parse(localStorage.getItem('app'))
         })
     }
@@ -195,7 +177,7 @@ export const removeFile = (data, appIndex) => {
         delete data.files[appIndex];
         localStorage.setItem('app', JSON.stringify(data));
         dispatch({
-            type: 'REMOVE_FILE_SUCCESS',
+            type: 'REFRESH_DATA',
             data: JSON.parse(localStorage.getItem('app'))
         });
     }

@@ -12,7 +12,7 @@ export const createNewTxtFile = data => {
         }
         localStorage.setItem('app', JSON.stringify(data));
         dispatch({ //Dispatch to localStorage.js
-            type: 'CREATE_TXT_FILE_SUCCESS',
+            type: 'REFRESH_DATA',
             data: JSON.parse(localStorage.getItem('app'))
         })
     }
