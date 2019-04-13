@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Notepad from './notepad/Notepad';
 import Link from '../../components/programs/link/Link';
 import MusicPlayer from '../../components/programs/musicPlayer/MusicPlayer';
+import VideoPlayer from '../../components/programs/videoPlayer/VideoPlayer';
 
 import { getRunningApplications } from '../../store/actions/localStorage';
 
@@ -33,6 +34,11 @@ class Programs extends Component {
                             if (app.type === 'audio') {
                                 return (
                                     <MusicPlayer appData={app} key={item} />
+                                )
+                            }
+                            if (app.type === 'video') {
+                                return (
+                                    <VideoPlayer appData={app} key={item} />
                                 )
                             }
                             return (

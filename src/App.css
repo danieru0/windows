@@ -12,7 +12,3 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
-
-video {
-    z-index: 99999999999;
-}
