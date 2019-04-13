@@ -1,3 +1,5 @@
+import db from '../../indexedDB/db';
+
 export const getLocalStorageJSON = () => {
     return dispatch => {
         let appJSON = JSON.parse(localStorage.getItem('app'));
@@ -185,9 +187,10 @@ export const changeFileName = (data, name, appIndex) => {
 export const removeFile = (data, appIndex) => {
     return dispatch => {
         if (data.files[appIndex].type === 'audio') {
-            let audio = JSON.parse(localStorage.getItem('audio'));
-            delete audio[appIndex];
-            localStorage.setItem('audio', JSON.stringify(audio)); 
+            db.audios.where('index').equals(Number(appIndex)).delete();
+        }
+        if (data.files[appIndex].type === 'video') {
+            db.videos.where('index').equals(Number(appIndex)).delete();
         }
         delete data.files[appIndex];
         localStorage.setItem('app', JSON.stringify(data));
