@@ -1,7 +1,7 @@
 .videoplayer {
     width: 1280px;
     height: 720px;
-    background: lightgrey;
+    background: #000000;
     z-index: 2;
     position: absolute;
     top: 0;

@@ -13,6 +13,10 @@ class VideoPlayer extends Component {
         this.props.getSpecificVideo(this.props.appData.index);
     }
 
+    componentWillUnmount() {
+        document.getElementById('videoElement').src = null;
+    }
+
     handleCloseButton = () => {
         this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.appData.index);
     }
@@ -38,7 +42,7 @@ class VideoPlayer extends Component {
                         </div>
                     </div>
                     <div className="videoplayer__content">
-                        <video src={video.base64} controls autoPlay className="videoplayer__video"></video>
+                        <video id="videoElement" src={video.base64} controls autoPlay className="videoplayer__video"></video>
                     </div>
                 </div>
             </Draggable>

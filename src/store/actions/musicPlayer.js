@@ -1,3 +1,5 @@
+import db from '../../indexedDB/db';
+
 export const createNewAudioFile = (data, name, base64) => {
     return dispatch => {
         let lastValue = parseInt(Object.keys(data.files)[Object.keys(data.files).length - 1]);
@@ -15,7 +17,31 @@ export const createNewAudioFile = (data, name, base64) => {
             type: 'REFRESH_DATA',
             data: JSON.parse(localStorage.getItem('app'))
         });
-        dispatch(addAudioToLocalStorage(index, base64))
+        dispatch(addAudioToIndexedDB(name, index, base64))
+    }
+}
+
+export const addAudioToIndexedDB = (name, index, base64) => {
+    return dispatch => {
+        db.audios.add({
+            title: name,
+            index: index,
+            base64: base64
+        }).then(() => {
+            console.log('addedd');
+        })
+    }
+}
+
+export const getSpecificMusic = index => {
+    return dispatch => {
+        db.audios.where('index').equals(index).toArray().then(result => {
+            let audio = result[0];
+            dispatch({
+                type: 'LOAD_AUDIO',
+                audio
+            })
+        })
     }
 }
 

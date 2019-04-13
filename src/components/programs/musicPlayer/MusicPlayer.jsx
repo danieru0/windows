@@ -3,6 +3,7 @@ import Draggable from 'react-draggable';
 import { connect } from 'react-redux';
 
 import { removeRunningAppFromLocalStorage, toggleMinimalizeApp } from '../../../store/actions/localStorage';
+import { getSpecificMusic } from '../../../store/actions/musicPlayer';
 
 import './MusicPlayer.css';
 
@@ -12,7 +13,6 @@ class MusicPlayer extends Component {
         this.state = {
             audioDuration: null,
             audioDurationUpdate: null,
-            audioElement: null,
             audioPause: false,
             volumeValue: 0.3,
             audioLoop: false
@@ -33,35 +33,27 @@ class MusicPlayer extends Component {
     }
 
     componentWillUnmount() {
-        let audioElement = this.state.audioElement;
-        audioElement.pause();
+        this.audioElement.pause();
     }
 
     componentDidMount() {
-        let allAudio = JSON.parse(localStorage.getItem('audio'));
-        let audio = document.createElement('audio');
-        audio.src = allAudio[this.props.appData.index]
-        audio.ref = ref => this.audioElement = ref;
-        audio.volume = 0.3;
-        this.setState({
-            audioElement: audio,
-        });
-        audio.onloadedmetadata = () => {
-            this.inputRange.max = audio.duration;
+        this.props.getSpecificMusic(this.props.appData.index);
+        this.audioElement.volume = 0.3;
+        this.audioElement.onloadedmetadata = () => {
+            this.inputRange.max = this.audioElement.duration;
             this.setState({
-                audioDuration: this.convertTime(audio.duration)
+                audioDuration: this.convertTime(this.audioElement.duration)
             });
         }
-        audio.onchange = () => audio.currentTime = this.inputRange.value;
-        audio.ontimeupdate = () => {
+        this.audioElement.onchange = () => this.audioElement.currentTime = this.inputRange.value;
+        this.audioElement.ontimeupdate = () => {
             if (this.inputRange) {
-                this.inputRange.value = audio.currentTime;
+                this.inputRange.value = this.audioElement.currentTime;
                 this.setState({
-                    audioDurationUpdate: this.convertTime(audio.currentTime)
+                    audioDurationUpdate: this.convertTime(this.audioElement.currentTime)
                 });
             }
         }
-        audio.play();
     }
 
     handleCloseButton = () => {
@@ -73,41 +65,38 @@ class MusicPlayer extends Component {
     }
 
     handleRangeChange = e => {
-        let audioElement = this.state.audioElement;
-        audioElement.currentTime = e.target.value;
+        this.audioElement.currentTime = e.target.value;
     }
 
     musicTrigger = () => {
-        let audioElement = this.state.audioElement;
         this.setState({
             audioPause: !this.state.audioPause
         }, () => {
-            this.state.audioPause ? audioElement.pause() : audioElement.play();
+            this.state.audioPause ? this.audioElement.pause() : this.audioElement.play();
         })
     }
 
     handleVolumeChange = e => {
-        let audioElement = this.state.audioElement;
-        audioElement.volume = e.target.value;
+        this.audioElement.volume = e.target.value;
         this.setState({
             volumeValue: e.target.value
         })
     }
 
     toggleLoop = () => {
-        let audioElement = this.state.audioElement;
         this.setState({
             audioLoop: !this.state.audioLoop
         }, () => {
-            audioElement.loop = this.state.audioLoop;
+            this.audioElement.loop = this.state.audioLoop;
         });
     }
 
     render() {
-        const { appData } = this.props;
+        const { appData, music } = this.props;
         return (
             <Draggable handle=".musicplayer__topbar" bounds="body">
                 <div className={appData.minimalized ? "musicplayer minimalized" : "musicplayer"}>
+                    <audio autoPlay ref={r => this.audioElement = r} src={music ? music.base64 : ''}></audio>
                     <div className="musicplayer__topbar">
                         <span className="musicplayer__name">Music Player</span>
                         <div className="musicplayer__program-options">
@@ -155,8 +144,9 @@ class MusicPlayer extends Component {
 
 const mapStateToProps = state => {
     return {
-        applications: state.localStorage.apps
+        applications: state.localStorage.apps,
+        music: state.musicPlayer.music
     }
 }
 
-export default connect(mapStateToProps, { removeRunningAppFromLocalStorage, toggleMinimalizeApp })(MusicPlayer);
+export default connect(mapStateToProps, { removeRunningAppFromLocalStorage, toggleMinimalizeApp, getSpecificMusic })(MusicPlayer);
