@@ -1,5 +1,8 @@
 const initState = {
-    music: null
+    music: {
+        title: null,
+        base64: null
+    }
 }
 
 export default (state = initState, action) => {
@@ -7,7 +10,11 @@ export default (state = initState, action) => {
         case 'LOAD_AUDIO':
             return {
                 ...initState,
-                music: action.audio
+                music: {
+                    ...initState.music,
+                    title: action.audio.title,
+                    base64: action.audio.base64
+                }
             }
         default: return state;
     }

@@ -114,7 +114,7 @@ class MusicPlayer extends Component {
                         </div>
                         <div className="musicplayer__info">
                             <img alt="" src="https://images-na.ssl-images-amazon.com/images/I/61R7gJadP7L._SX466_.jpg"></img>
-                            <p>{appData.name}</p>
+                            <p>{music.title}</p>
                         </div>
                         <div className="musicplayer__timeline">
                             <span className="musicplayer__time">{this.state.audioDurationUpdate}</span>

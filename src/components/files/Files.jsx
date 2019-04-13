@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { addRunningAppToLocalStorage } from '../../store/actions/localStorage';
+import { getSpecificMusic } from '../../store/actions/musicPlayer';
+import { getSpecificVideo } from '../../store/actions/videoPlayer';
 
 import FileIcon from './FileIcon';
 
@@ -12,7 +14,17 @@ class Files extends Component {
     openApp = e => {
         let clickedApp = this.props.files[e.target.id];
         if (clickedApp.type !== 'link') {
-            this.props.addRunningAppToLocalStorage(this.props.applications, clickedApp);
+            let clickedProgram = document.querySelector(clickedApp.type);
+            if (!clickedProgram) {
+                this.props.addRunningAppToLocalStorage(this.props.applications, clickedApp);
+            } else {
+                if (clickedApp.type === 'audio') {
+                    this.props.getSpecificMusic(clickedApp.index);
+                }
+                if (clickedApp.type === 'video') {
+                    this.props.getSpecificVideo(clickedApp.index);
+                }
+            }
         } else {
             window.open(clickedApp.href);
         }
@@ -41,4 +53,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps , {addRunningAppToLocalStorage })(Files);
+export default connect(mapStateToProps , { addRunningAppToLocalStorage, getSpecificMusic, getSpecificVideo })(Files);
