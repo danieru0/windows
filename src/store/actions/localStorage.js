@@ -47,7 +47,7 @@ export const initLocalStorageJSON = () => {
                     xPosition: null,
                     yPosition: null
                 },
-                10: {
+                2: {
                     name: 'Youtube link',
                     type: 'link',
                     href: 'https://www.youtube.pl',
@@ -60,8 +60,6 @@ export const initLocalStorageJSON = () => {
         } 
         localStorage.setItem('app', JSON.stringify(appJSON));
         let applications = {
-            musicPlayer: false,
-            videoPlayer: false,
             active: {}
         }
         localStorage.setItem('running', JSON.stringify(applications));
@@ -176,9 +174,9 @@ export const removeFile = (data, appIndex) => {
         }
         delete data.files[appIndex];
         localStorage.setItem('app', JSON.stringify(data));
-        /*dispatch({
+        dispatch({
             type: 'REFRESH_DATA',
             data: JSON.parse(localStorage.getItem('app'))
-        });*/
+        });
     }
 }

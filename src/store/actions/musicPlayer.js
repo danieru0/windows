@@ -3,8 +3,9 @@ import db from '../../indexedDB/db';
 export const createNewAudioFile = (data, name, base64) => {
     return dispatch => {
         let lastValue = parseInt(Object.keys(data.files)[Object.keys(data.files).length - 1]);
+        console.log(lastValue);
         let index = isNaN(lastValue) ? 0 : lastValue + 1;
-        data.files[lastValue + 1] = {
+        data.files[index] = {
             name: name,
             type: 'audio',
             background: 'https://image.flaticon.com/icons/svg/337/337944.svg',

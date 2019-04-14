@@ -1,0 +1,36 @@
+.informations__browsername {
+    margin: 0;
+    font-size: 28px;
+}
+
+.informations__browserver {
+    margin: 0;
+    font-size: 20px;
+}
+
+.informations__username {
+    display: flex;
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+.informations__name {
+    margin: 0;
+    margin-right: 10px;
+    position: relative;
+    bottom: 2px;
+}
+
+.informations__btn {
+    cursor: pointer;
+}
+
+.informations__input {
+    display: none;
+    margin-right: 15px;
+    height: 20px;
+}
+
+.informations__input.active {
+    display: block;
+}

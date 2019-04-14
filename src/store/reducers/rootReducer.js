@@ -11,5 +11,5 @@ export default combineReducers({
     notepad: notepadReducer,
     taskbar: taskbarReducer,
     videoPlayer: videoPlayerReducer,
-    musicPlayer: musicPlayerReducer
+    musicPlayer: musicPlayerReducer,
 });

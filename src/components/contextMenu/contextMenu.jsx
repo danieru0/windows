@@ -35,7 +35,6 @@ class ContextMenu extends Component {
 
     removeFile = () => {
         this.props.handleClickedItem();
-        document.getElementById(this.props.clickedElementId).parentNode.style.visibility = 'hidden';
         this.props.removeFile(this.props.data, this.props.clickedElementId);
     }
 

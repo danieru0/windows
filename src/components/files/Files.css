@@ -16,6 +16,10 @@
     position: absolute;
 }
 
+.file:hover {
+    background: rgba(0,0,0,0.1);
+}
+
 .file__img {
     width: 64px;
     height: 64px;

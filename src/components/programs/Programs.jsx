@@ -5,6 +5,7 @@ import Notepad from './notepad/Notepad';
 import Link from '../../components/programs/link/Link';
 import MusicPlayer from '../../components/programs/musicPlayer/MusicPlayer';
 import VideoPlayer from '../../components/programs/videoPlayer/VideoPlayer';
+import Settings from './settings/Settings';
 
 import { getRunningApplications } from '../../store/actions/localStorage';
 
@@ -23,22 +24,27 @@ class Programs extends Component {
                             let app = applications.active[item];
                             if (app.type === 'txt') {
                                 return (
-                                    <Notepad appData={app} key={item} />
+                                    <Notepad appData={app} key={key} />
                                 )
                             }
                             if (app.type === 'link') {
                                 return (
-                                    <Link minimalized={app.minimalized} index={app.index} key={item} />
+                                    <Link minimalized={app.minimalized} index={app.index} key={key} />
                                 )
                             }
                             if (app.type === 'audio') {
                                 return (
-                                    <MusicPlayer appData={app} key={item} />
+                                    <MusicPlayer appData={app} key={key} />
                                 )
                             }
                             if (app.type === 'video') {
                                 return (
-                                    <VideoPlayer appData={app} key={item} />
+                                    <VideoPlayer appData={app} key={key} />
+                                )
+                            }
+                            if (app.type === 'settings') {
+                                return (
+                                    <Settings appData={app} key={key} />
                                 )
                             }
                             return (

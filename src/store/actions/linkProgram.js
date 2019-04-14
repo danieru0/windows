@@ -1,4 +1,4 @@
-export const runLinkApplication = (runningApps) => {
+export const runLinkApplication = runningApps => {
     return dispatch => {
         let lastValue = parseInt(Object.keys(runningApps.active)[Object.keys(runningApps.active).length - 1]);
         runningApps.active[isNaN(lastValue) ? 0 : lastValue + 1] = {

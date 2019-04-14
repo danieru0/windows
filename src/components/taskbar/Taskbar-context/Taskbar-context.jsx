@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { runSettingsApplication } from '../../../store/actions/settings';
 
 import './Taskbar-context.css';
 
@@ -17,7 +20,9 @@ class TaskbarContext extends Component {
     }
 
     openSettings = () => {
-        alert('ye');
+        if (!document.querySelector('.settings')) {
+            this.props.runSettingsApplication(this.props.applications);
+        }
     }
 
     render() {
@@ -36,4 +41,10 @@ class TaskbarContext extends Component {
     }
 }
 
-export default TaskbarContext;
+const mapStateToProps = state => {
+    return {
+        applications: state.localStorage.apps
+    }
+}
+
+export default connect(mapStateToProps, { runSettingsApplication })(TaskbarContext);
