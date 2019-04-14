@@ -24,27 +24,27 @@ class Programs extends Component {
                             let app = applications.active[item];
                             if (app.type === 'txt') {
                                 return (
-                                    <Notepad appData={app} key={key} />
+                                    <Notepad appData={app} key={item} />
                                 )
                             }
                             if (app.type === 'link') {
                                 return (
-                                    <Link minimalized={app.minimalized} index={app.index} key={key} />
+                                    <Link minimalized={app.minimalized} index={app.index} key={item} />
                                 )
                             }
                             if (app.type === 'audio') {
                                 return (
-                                    <MusicPlayer appData={app} key={key} />
+                                    <MusicPlayer appData={app} key={item} />
                                 )
                             }
                             if (app.type === 'video') {
                                 return (
-                                    <VideoPlayer appData={app} key={key} />
+                                    <VideoPlayer appData={app} key={item} />
                                 )
                             }
                             if (app.type === 'settings') {
                                 return (
-                                    <Settings appData={app} key={key} />
+                                    <Settings appData={app} key={item} />
                                 )
                             }
                             return (
