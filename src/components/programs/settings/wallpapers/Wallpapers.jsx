@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { changeWallpaper, addNewImage } from '../../../../store/actions/settings';
+import { changeWallpaper, addNewImage, removeImage } from '../../../../store/actions/settings';
 
 import './Wallpapers.css';
 
@@ -44,6 +44,12 @@ class Wallpapers extends Component {
         }
     }
 
+    removeWallpaper = e => {
+        e.stopPropagation();
+        this.props.removeImage(e.target.parentNode.parentNode.dataset.index)
+
+    }
+
     render() {
         const { data } = this.props;
         return (
@@ -54,8 +60,11 @@ class Wallpapers extends Component {
                         Object.keys(data.wallpapers).map((item, key) => {
                             if (item !== 'active') {
                                 return (
-                                    <div key={key} data-value={data.wallpapers[item]} onClick={this.handleWallpaperChange} className="wallpaper__container">
+                                    <div key={key} data-index={item} data-value={data.wallpapers[item]} onClick={this.handleWallpaperChange} className="wallpaper__container">
                                         <div className="wallpaper__container--checkbox"></div>
+                                        <div onClick={this.removeWallpaper} className="wallaper__container--remove">
+                                            <span className="fa fa-trash"></span>
+                                        </div>
                                         <img className="wallpaper__imgs" src={data.wallpapers[item]} alt=""></img>
                                     </div>
                                 )
@@ -85,4 +94,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { changeWallpaper, addNewImage })(Wallpapers);
+export default connect(mapStateToProps, { changeWallpaper, addNewImage, removeImage })(Wallpapers);

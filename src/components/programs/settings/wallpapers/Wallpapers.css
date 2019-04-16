@@ -43,6 +43,14 @@
     display: none;
 } 
 
+.wallaper__container--remove {
+    position: absolute;
+    font-size: 14px;
+    color: grey;
+    right: -5px;
+    top: -10px;
+}
+
 .wallpaper__container.active .wallpaper__container--checkbox {
     display: block;
 }

@@ -41,6 +41,18 @@ export const addNewImage = url => {
     }
 }
 
+export const removeImage = index => {
+    return dispatch => {
+        let app = JSON.parse(localStorage.getItem('app'));
+        delete app.wallpapers[index];
+        localStorage.setItem('app', JSON.stringify(app));
+        dispatch({
+            type: 'REFRESH_DATA',
+            data: JSON.parse(localStorage.getItem('app'))
+        })
+    }
+}
+
 export const changeWallpaper = wallpaper => {
     return dispatch => {
         let app = JSON.parse(localStorage.getItem('app'));
