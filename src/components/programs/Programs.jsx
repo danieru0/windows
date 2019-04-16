@@ -20,7 +20,7 @@ class Programs extends Component {
             <>
                 {
                     applications ? (
-                        Object.keys(applications.active).map((item, key) => {
+                        Object.keys(applications.active).map((item) => {
                             let app = applications.active[item];
                             if (app.type === 'txt') {
                                 return (

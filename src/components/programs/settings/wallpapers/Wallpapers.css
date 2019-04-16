@@ -1,0 +1,58 @@
+.wallpaper__label {
+    font-size: 24px;
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.wallpaper__label::after {
+    content: '';
+    width: 98%;
+    height: 1px;
+    position: absolute;
+    background: #000000;
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+}
+
+.wallpaper__browser {
+    width: 98%;
+    height: 200px;
+    background: #F7F8FB;
+    margin-top: 18px;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+}
+
+.wallpaper__container {
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+}
+
+.wallpaper__container--checkbox {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: grey;
+    left: -5px;
+    top:  -5px;
+    display: none;
+} 
+
+.wallpaper__container.active .wallpaper__container--checkbox {
+    display: block;
+}
+
+.wallpaper__imgs {
+    width: 200px;
+    height: 130px;
+}
+
+.wallpaper__buttons {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

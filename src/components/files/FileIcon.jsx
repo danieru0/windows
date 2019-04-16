@@ -18,13 +18,19 @@ class FileIcon extends Component {
             x: xPosition ? xPosition : 0,
             y: yPosition ? yPosition : 0
         }
+
+        let shortName;
         
+        if (name.length > 30) {
+            shortName = name.substring(0, 30)+'...';
+        }
+
         return (
             <Draggable defaultPosition={defaultPosition}  onDrag={this.handleDrag} bounds="body">
-                <div className="file">
+                <div title={name} className="file">
                     <div onDoubleClick={this.props.onDoubleClick} id={index} className="file__overlay"></div>
                     <img className="file__img" alt="file" src={background}></img>
-                    <p className="file__name">{name}</p>
+                    <p className="file__name">{shortName ? shortName : name}</p>
                 </div>
             </Draggable>
         )

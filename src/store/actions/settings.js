@@ -27,3 +27,28 @@ export const changeUserName = username => {
         })
     }
 }
+
+export const addNewImage = url => {
+    return dispatch => {
+        let app = JSON.parse(localStorage.getItem('app'));
+        let lastValue = parseInt(Object.keys(app.wallpapers)[Object.keys(app.wallpapers).length - 2]);
+        app.wallpapers[isNaN(lastValue) ? 0 : lastValue + 1] = url;
+        localStorage.setItem('app', JSON.stringify(app));
+        dispatch({
+            type: 'REFRESH_DATA',
+            data: JSON.parse(localStorage.getItem('app'))
+        })
+    }
+}
+
+export const changeWallpaper = wallpaper => {
+    return dispatch => {
+        let app = JSON.parse(localStorage.getItem('app'));
+        app.wallpapers.active = wallpaper;
+        localStorage.setItem('app', JSON.stringify(app));
+        dispatch({
+            type: 'REFRESH_DATA',
+            data: JSON.parse(localStorage.getItem('app'))
+        })
+    }
+}

@@ -38,7 +38,7 @@ class Files extends Component {
                     Object.keys(files).map((item, key) => {
                         let file = files[item];
                         return (
-                            <FileIcon key={key} xPosition={file.xPosition} yPosition={file.yPosition} index={item} onDoubleClick={this.openApp} name={file.name} background={file.background} />
+                            <FileIcon key={item} xPosition={file.xPosition} yPosition={file.yPosition} index={item} onDoubleClick={this.openApp} name={file.name} background={file.background} />
                         )
                     })
                 }

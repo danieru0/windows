@@ -5,6 +5,7 @@ import Draggable from 'react-draggable';
 import { removeRunningAppFromLocalStorage, toggleMinimalizeApp } from '../../../store/actions/localStorage';
 
 import Informations from './informations/Infromations';
+import Wallpapers from './wallpapers/Wallpapers';
 
 import './Settings.css';
 
@@ -53,7 +54,7 @@ class Settings extends Component {
                                 <Informations />
                             </section>
                             <section id="wallpaper" className="settings__section settings__wallpaper">
-                                elo
+                                <Wallpapers />
                             </section>
                         </div>
                     </div>
