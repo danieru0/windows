@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { runSettingsApplication } from '../../../store/actions/settings';
+import { runCalculatorApplication } from '../../../store/actions/calculator';
 
 import './Taskbar-context.css';
 
@@ -25,6 +26,12 @@ class TaskbarContext extends Component {
         }
     }
 
+    openCalculator = () => {
+        if (!document.querySelector('.calculator')) {
+            this.props.runCalculatorApplication(this.props.applications);
+        }
+    }
+
     render() {
         return (
             <div className="taskbar__context">
@@ -33,6 +40,12 @@ class TaskbarContext extends Component {
                         <button onClick={this.openSettings} className="taskbar__context-btn">
                             <span className="taskbar__context-icon fa fa-cog"></span>
                             <p className="taskbar__context-text">Settings</p>
+                        </button>
+                    </li>
+                    <li className="taskbar__context-item">
+                        <button onClick={this.openCalculator} className="taskbar__context-btn">
+                            <span className="taskbar__context-icon fa fa-calculator"></span>
+                            <p className="taskbar__context-text">Calculator</p>
                         </button>
                     </li>
                 </ul>
@@ -47,4 +60,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { runSettingsApplication })(TaskbarContext);
+export default connect(mapStateToProps, { runSettingsApplication, runCalculatorApplication })(TaskbarContext);

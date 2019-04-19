@@ -6,6 +6,7 @@ import Link from '../../components/programs/link/Link';
 import MusicPlayer from '../../components/programs/musicPlayer/MusicPlayer';
 import VideoPlayer from '../../components/programs/videoPlayer/VideoPlayer';
 import Settings from './settings/Settings';
+import Calculator from './calculator/Calculator';
 
 import { getRunningApplications } from '../../store/actions/localStorage';
 
@@ -45,6 +46,11 @@ class Programs extends Component {
                             if (app.type === 'settings') {
                                 return (
                                     <Settings appData={app} key={item} />
+                                )
+                            }
+                            if (app.type === 'calculator') {
+                                return (
+                                    <Calculator appData={app} key={item} />
                                 )
                             }
                             return (

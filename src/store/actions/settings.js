@@ -10,7 +10,7 @@ export const runSettingsApplication = runningApps => {
         }
         localStorage.setItem('running', JSON.stringify(runningApps));
         dispatch({
-            type: 'REFRESH_RUNNING_DATA', //Dispatch to localStorage.js
+            type: 'REFRESH_RUNNING_DATA',
             data: JSON.parse(localStorage.getItem('running'))
         })
     }

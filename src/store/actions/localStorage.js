@@ -22,6 +22,7 @@ export const initLocalStorageJSON = () => {
     return dispatch => {
         let appJSON = {
             name: 'Anonymous',
+            city: 'Unknown',
             wallpapers: {
                 active: 'https://images.unsplash.com/photo-1498598457418-36ef20772bb9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
                 0: 'https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-633064.jpg',
