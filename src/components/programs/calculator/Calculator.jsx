@@ -46,7 +46,7 @@ class Calculator extends Component {
             <Draggable handle=".calculator__topbar" bounds="body">
                 <div id="calculator" className={appData.minimalized ? "calculator minimalized" : "calculator"}>
                     <div className="calculator__topbar">
-                    <span className="calculator__name">Calculator</span>
+                        <span className="calculator__name">Calculator</span>
                         <div className="calculator__program-options">
                             <button onClick={this.handleMinimalizeButton} className="calculator__minimalize">
                                 <span className="calculator__minimalize-icon fa fa-window-minimize"></span>

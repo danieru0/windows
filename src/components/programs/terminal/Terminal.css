@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather+Sans:300');
+
+.terminal {
+    width: 670px;
+    height: 360px;
+    z-index: 2;
+    background: #000000;
+    position: absolute;
+    top: 0;
+}
+
+.terminal.minimalized {
+    display: none;
+}
+
+.terminal__topbar {
+    width: 670px;
+    height: 50px;
+    background: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+}
+
+.terminal__name {
+    color: grey;
+}
+
+.terminal__program-options {
+    margin-top: -3px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.terminal__close {
+    border: none;
+    background: #ff0000;
+    color: #ffffff;
+    width: 40px;
+    height: 20px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.terminal__minimalize {
+    border: none;
+    background: blue;
+    color: #ffffff;
+    width: 40px;
+    height: 20px;
+    outline: none;
+    cursor: pointer;   
+}
+
+.terminal__content {
+    height: calc(100% - 60px);
+    position: relative;
+    margin-top: 50px;
+    color: #ffffff;
+    font-family: 'Merriweather Sans';
+    padding: 2px;
+    overflow-x: auto;
+}
+
+.terminal__output p {
+    margin: 0;
+}
+
+.terminal__input {
+    background: none;
+    border: none;
+    color: #ffffff;
+    outline: none;
+    font-size: 16px;
+    font-family: 'Merriweather Sans';
+}

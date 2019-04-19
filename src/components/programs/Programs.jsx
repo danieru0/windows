@@ -7,6 +7,7 @@ import MusicPlayer from '../../components/programs/musicPlayer/MusicPlayer';
 import VideoPlayer from '../../components/programs/videoPlayer/VideoPlayer';
 import Settings from './settings/Settings';
 import Calculator from './calculator/Calculator';
+import Terminal from './terminal/Terminal';
 
 import { getRunningApplications } from '../../store/actions/localStorage';
 
@@ -52,6 +53,11 @@ class Programs extends Component {
                                 return (
                                     <Calculator appData={app} key={item} />
                                 )
+                            }
+                            if (app.type === 'terminal') {
+                                return (
+                                    <Terminal appData={app} key={item} />
+                                ) 
                             }
                             return (
                                 ''

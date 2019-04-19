@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { runSettingsApplication } from '../../../store/actions/settings';
 import { runCalculatorApplication } from '../../../store/actions/calculator';
+import { runTerminalApplication } from '../../../store/actions/terminal';
 
 import './Taskbar-context.css';
 
@@ -32,6 +33,12 @@ class TaskbarContext extends Component {
         }
     }
 
+    openTerminal = () => {
+        if (!document.querySelector('.terminal')) {
+            this.props.runTerminalApplication(this.props.applications);
+        }
+    }
+
     render() {
         return (
             <div className="taskbar__context">
@@ -48,6 +55,12 @@ class TaskbarContext extends Component {
                             <p className="taskbar__context-text">Calculator</p>
                         </button>
                     </li>
+                    <li className="taskbar__context-item">
+                        <button onClick={this.openTerminal} className="taskbar__context-btn">
+                            <span className="taskbar__context-icon fa fa-terminal"></span>
+                            <p className="taskbar__context-text">Terminal</p>
+                        </button>
+                    </li>
                 </ul>
             </div>
         )
@@ -60,4 +73,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { runSettingsApplication, runCalculatorApplication })(TaskbarContext);
+export default connect(mapStateToProps, { runSettingsApplication, runCalculatorApplication, runTerminalApplication })(TaskbarContext);
