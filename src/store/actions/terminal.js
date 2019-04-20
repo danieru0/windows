@@ -31,6 +31,7 @@ export const help = () => {
             <p>whoami</p>
             <p>ls</p>
             <p>rm</p>
+            <p>href</p>
         `
         dispatch({
             type: 'UPDATE_OUTPUT',
@@ -165,6 +166,24 @@ export const rm = (inProgram, value) => {
             dispatch({
                 type: 'UPDATE_OUTPUT',
                 data: `<p>> rm</p><p>Correct syntax: rm "file index"</p>Use 'ls' to get file index<p></p>`
+            })
+        }
+    }
+}
+
+export const href = (inProgram, value) => {
+    return dispatch => {
+        let site = value.replace('href', '');
+        if (site) {
+            if (!(site.indexOf('http') > -1 || site.indexOf('https') > -1)) {
+                window.open(`https://${site.replace(/ /g, '')}`);
+            } else {
+                window.open(site);
+            }
+        } else {
+            dispatch({
+                type: 'UPDATE_OUTPUT',
+                data: `<p>> href</p><p>Correct syntax: href "url"</p>`
             })
         }
     }

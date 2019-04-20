@@ -1,3 +1,6 @@
+import db from '../../indexedDB/db';
+import { initLocalStorageJSON } from './localStorage';
+
 export const runSettingsApplication = runningApps => {
     return dispatch => {
         let lastValue = parseInt(Object.keys(runningApps.active)[Object.keys(runningApps.active).length - 1]);
@@ -61,6 +64,37 @@ export const changeWallpaper = wallpaper => {
         dispatch({
             type: 'REFRESH_DATA',
             data: JSON.parse(localStorage.getItem('app'))
+        })
+    }
+}
+
+export const resetFilesPosition = () => {
+    return dispatch => {
+        let app = JSON.parse(localStorage.getItem('app'));
+        Object.keys(app.files).map(item => {
+            app.files[item].xPosition = null;
+            app.files[item].yPosition = null;
+            return null;
+        });
+        localStorage.setItem('app', JSON.stringify(app));
+        dispatch({
+            type: 'REFRESH_DATA',
+            data: JSON.parse(localStorage.getItem('app'))
+        })
+        window.location.reload();
+    }
+}
+
+export const resetApp = () => {
+    return dispatch => {
+        dispatch({
+            type: 'REFRESH_DATA',
+            data: null
+        })
+        localStorage.removeItem('app');
+        localStorage.removeItem('running');
+        db.delete().then(() => {
+            dispatch(initLocalStorageJSON());
         })
     }
 }

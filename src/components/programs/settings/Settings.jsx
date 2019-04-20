@@ -6,6 +6,7 @@ import { removeRunningAppFromLocalStorage, toggleMinimalizeApp } from '../../../
 
 import Informations from './informations/Infromations';
 import Wallpapers from './wallpapers/Wallpapers';
+import Reset from './reset/Reset';
 
 import './Settings.css';
 
@@ -47,6 +48,7 @@ class Settings extends Component {
                             <ul className="settings__list">
                                 <li onClick={this.handleSectionChange} data-value="informations" className="settings__item settings__item-informations active">Informations</li>
                                 <li onClick={this.handleSectionChange} data-value="wallpaper" className="settings__item settings__item-wallpaper">Wallpaper</li>
+                                <li onClick={this.handleSectionChange} data-value="reset" className="settings__item settings__item-reset">Reset</li>
                             </ul>
                         </div>
                         <div className="settings__sections">
@@ -55,6 +57,9 @@ class Settings extends Component {
                             </section>
                             <section id="wallpaper" className="settings__section settings__wallpaper">
                                 <Wallpapers />
+                            </section>
+                            <section id="reset" className="settings__section settings__reset">
+                                <Reset />
                             </section>
                         </div>
                     </div>

@@ -70,6 +70,7 @@
 }
 
 .terminal__input {
+    width: 85%;
     background: none;
     border: none;
     color: #ffffff;
