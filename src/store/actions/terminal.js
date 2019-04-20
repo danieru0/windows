@@ -1,3 +1,5 @@
+import { removeFile } from './localStorage';
+
 export const runTerminalApplication = runningApps => {
     return dispatch => {
         let lastValue = parseInt(Object.keys(runningApps.active)[Object.keys(runningApps.active).length - 1]);
@@ -27,6 +29,8 @@ export const help = () => {
             <p>touch</p>
             <p>exit</p>
             <p>whoami</p>
+            <p>ls</p>
+            <p>rm</p>
         `
         dispatch({
             type: 'UPDATE_OUTPUT',
@@ -129,5 +133,39 @@ export const whoami = () => {
             type: 'UPDATE_OUTPUT',
             data: `<p>> whoami</p><p>${app.name}</p>`
         })
+    }
+}
+
+export const ls = () => {
+    return dispatch => {
+        let app = JSON.parse(localStorage.getItem('app'));
+        let output;
+        Object.keys(app.files).map(item => {
+            output += `<p>${item} ${app.files[item].name}.${app.files[item].type}</p>`
+            return null;
+        })
+        dispatch({
+            type: 'UPDATE_OUTPUT',
+            data: `<p>> ls</p><p>${output.replace('undefined', '')}</p>`
+        })
+    }
+}
+
+export const rm = (inProgram, value) => {
+    return dispatch => {
+        let index = value.replace('rm', '');
+        if (index) {
+            let app = JSON.parse(localStorage.getItem('app'));
+            dispatch(removeFile(app, parseInt(index)));
+            dispatch({
+                type: 'UPDATE_OUTPUT',
+                data: `<p>> rm ${index}</p><p>file with index ${index} has been deleted</p>`
+            })
+        } else {
+            dispatch({
+                type: 'UPDATE_OUTPUT',
+                data: `<p>> rm</p><p>Correct syntax: rm "file index"</p>Use 'ls' to get file index<p></p>`
+            })
+        }
     }
 }

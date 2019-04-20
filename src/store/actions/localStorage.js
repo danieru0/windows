@@ -167,6 +167,7 @@ export const changeFileName = (data, name, appIndex) => {
 
 export const removeFile = (data, appIndex) => {
     return dispatch => {
+        console.log(appIndex);
         if (data.files[appIndex].type === 'audio') {
             db.audios.where('index').equals(Number(appIndex)).delete();
         }
