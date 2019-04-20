@@ -31,3 +31,56 @@ export const help = () => {
         })
     }
 }
+
+export const echo = (inProgram, value) => {
+    return dispatch => {
+        let text = value.replace('echo', '');
+        let output = `
+            <p>${text}</p>
+            <p><br /></p>
+        `
+        dispatch({
+            type: 'UPDATE_OUTPUT',
+            data: output
+        })
+    }
+}
+
+export const author = () => {
+    return dispatch => {
+        let output = `
+            <p>Daniel Dąbrowski</p>
+            <p>www.github.com/elosiktv</p>
+            <p><br /></p>
+        `
+        dispatch({
+            type: 'UPDATE_OUTPUT',
+            data: output
+        })
+    }
+}
+
+export const calculator = (inProgram, value) => {
+    return dispatch => {
+        if (!inProgram) {
+            dispatch({
+                type: 'SET_PROGRAM',
+                data: {program: 'calculator', output: `<p>Type 'exit' to stop calculator</p>`}
+            });
+        } else {
+            if (value.match(/^[0-9/\W/]+$/)) {
+                dispatch({
+                    type: 'UPDATE_OUTPUT',
+                    // eslint-disable-next-line
+                    data: `<p>${eval(value)}</p>`
+                })
+            } else {
+                if (value === 'exit') {
+                    dispatch({
+                        type: 'REMOVE_PROGRAM'
+                    })
+                }
+            }
+        }
+    }
+}

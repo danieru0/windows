@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import { connect } from 'react-redux';
 
-import { help } from '../../../store/actions/terminal';
+import { help, echo, author, calculator } from '../../../store/actions/terminal';
 import { removeRunningAppFromLocalStorage, toggleMinimalizeApp } from '../../../store/actions/localStorage';
 
 import './Terminal.css';
@@ -11,7 +11,6 @@ class Terminal extends Component {
 
     componentDidMount() {
         let input = document.getElementById('terminal-input');
-
         input.focus();
         input.addEventListener('blur', () => {
             input.focus();
@@ -28,18 +27,27 @@ class Terminal extends Component {
 
     handleInputEnter = e => {
         if (e.key === 'Enter') {
-            try {
-                this.props[e.target.value]();
-            } catch {
-                this.output.innerHTML += `<p>Command not found!</p><p><br /></p>`;
-                document.getElementById('terminal-content').scrollTop = document.getElementById('terminal-content').scrollHeight;
+            if (e.target.value !== 'cls') {
+                try {
+                    if (this.props.program) {
+                        this.props[this.props.program](true, e.target.value);
+                    } else {
+                        this.props[e.target.value.split(' ')[0]](false, e.target.value);
+                    }
+                } catch {
+                    this.output.innerHTML += `<p>Command not found!</p><p><br /></p>`;
+                    document.getElementById('terminal-content').scrollTop = document.getElementById('terminal-content').scrollHeight;
+                }
+            } else {
+                this.output.innerHTML = ''
             }
+
             e.target.value = '';
         }
     }
 
     render() {
-        const { output, appData } = this.props;
+        const { output, program, appData } = this.props;
         if (this.output) {
             this.output.innerHTML += output;
             document.getElementById('terminal-content').scrollTop = document.getElementById('terminal-content').scrollHeight;
@@ -63,7 +71,7 @@ class Terminal extends Component {
                             <p>Type 'help' to get command list</p>
                             <p><br /></p>
                         </div>
-                        <span>> </span><input onKeyPress={this.handleInputEnter} id="terminal-input" className="terminal__input"></input>
+                        <span>{program}> </span><input onKeyPress={this.handleInputEnter} id="terminal-input" className="terminal__input"></input>
                     </div>
                 </div>
             </Draggable>            
@@ -74,9 +82,10 @@ class Terminal extends Component {
 const mapStateToProps = state => {
     return {
         output: state.terminal.output,
+        program: state.terminal.program,
         applications: state.localStorage.apps,
         refresh: state.terminal.refresh
     }
 }
 
-export default connect(mapStateToProps, { help, removeRunningAppFromLocalStorage, toggleMinimalizeApp })(Terminal);
+export default connect(mapStateToProps, { help, echo, author, calculator, removeRunningAppFromLocalStorage, toggleMinimalizeApp })(Terminal);
