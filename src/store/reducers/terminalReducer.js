@@ -22,7 +22,7 @@ export default (state = initState, action) => {
             return {
                 ...state,
                 program: null,
-                output: ''
+                output: action.data
             }
         default: return state;
     }

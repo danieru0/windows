@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import { connect } from 'react-redux';
 
-import { help, echo, author, calculator } from '../../../store/actions/terminal';
+import { help, echo, author, calculator, touch, whoami } from '../../../store/actions/terminal';
 import { removeRunningAppFromLocalStorage, toggleMinimalizeApp } from '../../../store/actions/localStorage';
 
 import './Terminal.css';
@@ -27,7 +27,7 @@ class Terminal extends Component {
 
     handleInputEnter = e => {
         if (e.key === 'Enter') {
-            if (e.target.value !== 'cls') {
+            if (e.target.value !== 'cls' && e.target.value !== 'exit') {
                 try {
                     if (this.props.program) {
                         this.props[this.props.program](true, e.target.value);
@@ -35,11 +35,11 @@ class Terminal extends Component {
                         this.props[e.target.value.split(' ')[0]](false, e.target.value);
                     }
                 } catch {
-                    this.output.innerHTML += `<p>Command not found!</p><p><br /></p>`;
+                    this.output.innerHTML += `<p>> ${e.target.value}</p><p>Command not found!</p>`;
                     document.getElementById('terminal-content').scrollTop = document.getElementById('terminal-content').scrollHeight;
                 }
             } else {
-                this.output.innerHTML = ''
+                e.target.value === 'cls' ? this.output.innerHTML = '' : this.handleCloseButton();
             }
 
             e.target.value = '';
@@ -88,4 +88,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { help, echo, author, calculator, removeRunningAppFromLocalStorage, toggleMinimalizeApp })(Terminal);
+export default connect(mapStateToProps, { help, echo, author, calculator, touch, whoami, removeRunningAppFromLocalStorage, toggleMinimalizeApp })(Terminal);
