@@ -46,6 +46,23 @@ export const getSpecificMusic = index => {
     }
 }
 
+export const loadNewMusic = (activePlayer, clickedMusic, xPosition, yPosition) => {
+    return dispatch =>   {
+        let running = JSON.parse(localStorage.getItem('running'));
+        let app = JSON.parse(localStorage.getItem('app'));
+        delete running.active[activePlayer];
+        running.active[clickedMusic] = app.files[clickedMusic];
+        running.active[clickedMusic].xPosition = xPosition;
+        running.active[clickedMusic].yPosition = yPosition;
+        localStorage.setItem('running', JSON.stringify(running));
+        dispatch({
+            type: 'REFRESH_RUNNING_DATA',
+            data: JSON.parse(localStorage.getItem('running'))
+        });
+        dispatch(getSpecificMusic(clickedMusic));
+    }
+}
+
 export const changeImage = (index, image) => {
     return dispatch => {
         let app = JSON.parse(localStorage.getItem('app'));

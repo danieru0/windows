@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import { connect } from 'react-redux';
 
-import { removeRunningAppFromLocalStorage, toggleMinimalizeApp } from '../../../store/actions/localStorage';
+import { removeRunningAppFromLocalStorage, toggleMinimalizeApp, saveProgramPosition } from '../../../store/actions/localStorage';
 import { getSpecificMusic, changeImage } from '../../../store/actions/musicPlayer';
 
 import './MusicPlayer.css';
@@ -111,9 +111,13 @@ class MusicPlayer extends Component {
 
     render() {
         const { appData, music } = this.props;
+        const defaultPosition = {
+            x: appData.xPosition ? appData.xPosition : 0,
+            y: appData.yPosition ? appData.yPosition : 0
+        }
         return (
-            <Draggable handle=".musicplayer__topbar" bounds="body">
-                <div className={appData.minimalized ? "musicplayer minimalized" : "musicplayer"}>
+            <Draggable defaultPosition={defaultPosition} handle=".musicplayer__topbar" bounds="body">
+                <div id={appData.index} className={appData.minimalized ? "musicplayer minimalized" : "musicplayer"}>
                     <audio autoPlay ref={r => this.audioElement = r} src={music ? music.base64 : ''}></audio>
                     <div className="musicplayer__topbar">
                         <span className="musicplayer__name">Music Player</span>
@@ -135,7 +139,7 @@ class MusicPlayer extends Component {
                         </div>
                         <div className="musicplayer__info">
                             <img alt="" src={appData.image}></img>
-                            <p ref={r => this.musicTitle = r}>{music.title}</p>
+                            <p ref={r => this.musicTitle = r}>{appData.name}</p>
                         </div>
                         <div className="musicplayer__timeline">
                             <span className="musicplayer__time">{this.state.audioDurationUpdate}</span>
@@ -170,4 +174,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { removeRunningAppFromLocalStorage, toggleMinimalizeApp, getSpecificMusic, changeImage })(MusicPlayer);
+export default connect(mapStateToProps, { saveProgramPosition, removeRunningAppFromLocalStorage, toggleMinimalizeApp, getSpecificMusic, changeImage })(MusicPlayer);

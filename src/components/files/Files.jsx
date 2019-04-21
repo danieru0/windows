@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { addRunningAppToLocalStorage } from '../../store/actions/localStorage';
-import { getSpecificMusic } from '../../store/actions/musicPlayer';
+import { getSpecificMusic, loadNewMusic } from '../../store/actions/musicPlayer';
 import { getSpecificVideo } from '../../store/actions/videoPlayer';
 
 import FileIcon from './FileIcon';
@@ -14,12 +14,13 @@ class Files extends Component {
     openApp = e => {
         let clickedApp = this.props.files[e.target.id];
         if (clickedApp.type !== 'link') {
-            let clickedProgram = document.querySelector(clickedApp.type);
+            let clickedProgram = document.querySelector(clickedApp.type === 'audio' ? '.musicplayer' : '.videoplayer');
             if (!clickedProgram) {
                 this.props.addRunningAppToLocalStorage(this.props.applications, clickedApp);
             } else {
                 if (clickedApp.type === 'audio') {
-                    this.props.getSpecificMusic(clickedApp.index);
+                    let position = clickedProgram.getBoundingClientRect();
+                    this.props.loadNewMusic(clickedProgram.id, clickedApp.index, position.left, position.top);
                 }
                 if (clickedApp.type === 'video') {
                     this.props.getSpecificVideo(clickedApp.index);
@@ -53,4 +54,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps , { addRunningAppToLocalStorage, getSpecificMusic, getSpecificVideo })(Files);
+export default connect(mapStateToProps , { addRunningAppToLocalStorage, getSpecificMusic, loadNewMusic, getSpecificVideo })(Files);
