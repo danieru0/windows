@@ -68,10 +68,14 @@ class App extends Component {
     const reader = new FileReader();
     reader.onload = e => {
       if (inputType === 'audioInput') {
-        this.props.createNewAudioFile(this.props.data, file.name, e.target.result);
+        if (file.type === 'audio/mp3') {
+          this.props.createNewAudioFile(this.props.data, file.name, e.target.result);
+        }
       }
       if (inputType === 'videoInput') {
-        this.props.createNewVideoFile(this.props.data, file.name, e.target.result);
+        if (file.type === 'video/mp4') {
+          this.props.createNewVideoFile(this.props.data, file.name, e.target.result);
+        }
       }
     }
     reader.readAsDataURL(e.target.files[0]);
@@ -94,8 +98,8 @@ class App extends Component {
     return (
       data ? (
         <div style={{ backgroundImage: `url(${data.wallpapers.active})` }} className="App">
-          <input name="audio" onChange={this.handleInputFileChange} style={{display: 'none'}} type="file" id="audioInput"></input>
-          <input name="video" onChange={this.handleInputFileChange} style={{display: 'none'}} type="file" id="videoInput"></input>
+          <input name="audio" accept="audio/mp3" onChange={this.handleInputFileChange} style={{display: 'none'}} type="file" id="audioInput"></input>
+          <input name="video" accept="video/mp4" onChange={this.handleInputFileChange} style={{display: 'none'}} type="file" id="videoInput"></input>
           <StartText />
           <Files files={data.files} />
           <Programs />
