@@ -87,6 +87,13 @@ class Paint extends Component {
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
+    saveCanvas = () => {
+        let link = document.createElement('a');
+        link.href = this.canvas.toDataURL();
+        link.download = 'canvas.png';
+        link.click();
+    }
+
     handleCloseButton = () => {
         this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.appData.index);
     }
@@ -117,11 +124,14 @@ class Paint extends Component {
                             <input onChange={this.handleWidthRange} type="range" defaultValue="3" min="1" max="32"></input>
                             <span className="paint__width">{this.state.lineWidth}</span>
                             <input onChange={this.handleColorChange} className="paint__color" type="color"></input>
-                            <button onClick={this.clearCanvas} className="paint__erase">
+                            <button title="clear" onClick={this.clearCanvas} className="paint__erase">
                                 <span className="fa fa-eraser"></span>
                             </button>
+                            <button title="download" onClick={this.saveCanvas} className="paint__save">
+                                <span className="fa fa-download"></span>
+                            </button>
                         </div>
-                        <canvas ref={r => this.canvas = r} id="paint-canvas" width="800" height="550"></canvas>
+                        <canvas ref={r => this.canvas = r} id="paint-canvas" className="paint__canvas" width="800" height="550"></canvas>
                     </div>
                 </div>
             </Draggable>

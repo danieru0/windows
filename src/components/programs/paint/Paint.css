@@ -77,10 +77,21 @@
 
 .paint__color {
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .paint__erase {
     padding: 4px;
     margin-left: 10px;
     cursor: pointer;
+}
+
+.paint__save {
+    padding: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.paint__canvas {
+    cursor: crosshair;
 }
