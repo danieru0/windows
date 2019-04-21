@@ -64,4 +64,23 @@
     width: 100%;
     background: #F7F8FB;
     height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.paint__width {
+    background: #000000;
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 7px;
+}
+
+.paint__color {
+    margin-left: 10px;
+}
+
+.paint__erase {
+    padding: 4px;
+    margin-left: 10px;
+    cursor: pointer;
 }

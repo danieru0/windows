@@ -12,7 +12,9 @@ class Paint extends Component {
         this.state = {
             mouseDown: false,
             posX: 0,
-            posY: 0
+            posY: 0,
+            stroke: '#000000',
+            lineWidth: 3
         }
     }
 
@@ -53,15 +55,36 @@ class Paint extends Component {
 
     draw = (e, ctx) => {
         ctx.lineJoin = 'round';
-        ctx.lineWidth = 3;
+        ctx.lineWidth = this.state.lineWidth;
         ctx.lineCap = 'round';
-        ctx.strokeStyle = '#000000';
+        if (e.which === 3) {
+            ctx.strokeStyle = '#ffffff';
+        } else {
+            ctx.strokeStyle = this.state.stroke;
+        }
 
         ctx.beginPath();
         ctx.moveTo(this.state.posX, this.state.posY);
         this.setPosition(e);
         ctx.lineTo(this.state.posX, this.state.posY);
         ctx.stroke();
+    }
+
+    handleWidthRange = e => {
+        this.setState({
+            lineWidth: e.target.value
+        });
+    }
+
+    handleColorChange = e => {
+        this.setState({
+            stroke: e.target.value
+        });
+    }
+
+    clearCanvas = () => {
+        const ctx = this.canvas.getContext('2d');
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     handleCloseButton = () => {
@@ -71,6 +94,7 @@ class Paint extends Component {
     handleMinimalizeButton = () => {
         this.props.toggleMinimalizeApp(this.props.applications, this.props.appData.index);
     }
+
 
     render() {
         const { appData } = this.props;
@@ -89,7 +113,14 @@ class Paint extends Component {
                         </div>
                     </div>
                     <div className="paint__content">
-                        <div className="paint__toolbar"></div>
+                        <div className="paint__toolbar">
+                            <input onChange={this.handleWidthRange} type="range" defaultValue="3" min="1" max="32"></input>
+                            <span className="paint__width">{this.state.lineWidth}</span>
+                            <input onChange={this.handleColorChange} className="paint__color" type="color"></input>
+                            <button onClick={this.clearCanvas} className="paint__erase">
+                                <span className="fa fa-eraser"></span>
+                            </button>
+                        </div>
                         <canvas ref={r => this.canvas = r} id="paint-canvas" width="800" height="550"></canvas>
                     </div>
                 </div>
