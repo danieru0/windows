@@ -13,7 +13,7 @@ class Paint extends Component {
             mouseDown: false,
             posX: 0,
             posY: 0,
-            stroke: '#000000',
+            stroke: '#111111',
             lineWidth: 3
         }
     }
@@ -123,7 +123,7 @@ class Paint extends Component {
                         <div className="paint__toolbar">
                             <input onChange={this.handleWidthRange} type="range" defaultValue="3" min="1" max="32"></input>
                             <span className="paint__width">{this.state.lineWidth}</span>
-                            <input onChange={this.handleColorChange} className="paint__color" type="color"></input>
+                            <input onChange={this.handleColorChange} value={this.state.stroke} className="paint__color" type="color"></input>
                             <button title="clear" onClick={this.clearCanvas} className="paint__erase">
                                 <span className="fa fa-eraser"></span>
                             </button>
