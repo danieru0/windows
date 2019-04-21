@@ -13,10 +13,10 @@ class FileIcon extends Component {
     }
 
     render() {
-        const { name, background, index, xPosition, yPosition } = this.props;
+        const { name, background, index, xPosition, yPosition, firstPosition } = this.props;
         const defaultPosition = {
-            x: xPosition ? xPosition : 0,
-            y: yPosition ? yPosition : 0
+            x: xPosition ? xPosition : firstPosition.left,
+            y: yPosition ? yPosition : firstPosition.top
         }
 
         let shortName;

@@ -33,13 +33,20 @@ class Files extends Component {
 
     render() {
         const { files } = this.props;
+        let top = -120;
+        let left = 0;
         return (
             <>
                 {
                     Object.keys(files).map(item => {
                         let file = files[item];
+                        top += 120;
+                        if (top > window.innerHeight - 100) {
+                            top = 0;
+                            left += 120;
+                        }
                         return (
-                            <FileIcon key={item} xPosition={file.xPosition} yPosition={file.yPosition} index={item} onDoubleClick={this.openApp} name={file.name} background={file.background} />
+                            <FileIcon key={item} firstPosition={{top: top, left: left}} xPosition={file.xPosition} yPosition={file.yPosition} index={item} onDoubleClick={this.openApp} name={file.name} background={file.background} />
                         )
                     })
                 }
