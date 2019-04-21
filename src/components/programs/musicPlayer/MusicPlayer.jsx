@@ -3,7 +3,7 @@ import Draggable from 'react-draggable';
 import { connect } from 'react-redux';
 
 import { removeRunningAppFromLocalStorage, toggleMinimalizeApp } from '../../../store/actions/localStorage';
-import { getSpecificMusic } from '../../../store/actions/musicPlayer';
+import { getSpecificMusic, changeImage } from '../../../store/actions/musicPlayer';
 
 import './MusicPlayer.css';
 
@@ -17,24 +17,6 @@ class MusicPlayer extends Component {
             volumeValue: 0.3,
             audioLoop: false
         }
-    }
-
-    convertTime = function(time) {
-        var mins = Math.floor(time / 60);
-        if (mins < 10) {
-          mins = '0' + String(mins);
-        }
-        var secs = Math.floor(time % 60);
-        if (secs < 10) {
-          secs = '0' + String(secs);
-        }
-    
-        return mins + ':' + secs;
-    }
-
-    componentWillUnmount() {
-        this.audioElement.pause();
-        clearInterval(this.textInterval);
     }
 
     componentDidMount() {
@@ -66,6 +48,24 @@ class MusicPlayer extends Component {
             }
         }, 30)
     }
+    componentWillUnmount() {
+        this.audioElement.pause();
+        clearInterval(this.textInterval);
+    }
+
+    convertTime = function(time) {
+        var mins = Math.floor(time / 60);
+        if (mins < 10) {
+          mins = '0' + String(mins);
+        }
+        var secs = Math.floor(time % 60);
+        if (secs < 10) {
+          secs = '0' + String(secs);
+        }
+    
+        return mins + ':' + secs;
+    }
+
 
     handleCloseButton = () => {
         this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.appData.index);
@@ -102,6 +102,13 @@ class MusicPlayer extends Component {
         });
     }
 
+    changeImage = () => {
+        let urlPrompt = prompt('URL: ');
+        if (urlPrompt) {
+            this.props.changeImage(this.props.appData.index, urlPrompt);
+        }
+    }
+
     render() {
         const { appData, music } = this.props;
         return (
@@ -122,10 +129,13 @@ class MusicPlayer extends Component {
                     <div className="musicplayer__content">
                         <div className="musicplayer__top">
                             <p>Now playing</p>
+                            <button onClick={this.changeImage} title="Change image" className="musicplayer__image-btn">
+                                <span className="fa fa-image"></span>
+                            </button>
                         </div>
                         <div className="musicplayer__info">
-                            <img alt="" src="https://images-na.ssl-images-amazon.com/images/I/61R7gJadP7L._SX466_.jpg"></img>
-                            <p ref={r => this.musicTitle = r} className="musicplayer__title">{music.title}</p>
+                            <img alt="" src={appData.image}></img>
+                            <p ref={r => this.musicTitle = r}>{music.title}</p>
                         </div>
                         <div className="musicplayer__timeline">
                             <span className="musicplayer__time">{this.state.audioDurationUpdate}</span>
@@ -160,4 +170,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { removeRunningAppFromLocalStorage, toggleMinimalizeApp, getSpecificMusic })(MusicPlayer);
+export default connect(mapStateToProps, { removeRunningAppFromLocalStorage, toggleMinimalizeApp, getSpecificMusic, changeImage })(MusicPlayer);

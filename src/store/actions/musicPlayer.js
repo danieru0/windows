@@ -3,12 +3,12 @@ import db from '../../indexedDB/db';
 export const createNewAudioFile = (data, name, base64) => {
     return dispatch => {
         let lastValue = parseInt(Object.keys(data.files)[Object.keys(data.files).length - 1]);
-        console.log(lastValue);
         let index = isNaN(lastValue) ? 0 : lastValue + 1;
         data.files[index] = {
             name: name,
             type: 'audio',
             background: 'https://image.flaticon.com/icons/svg/337/337944.svg',
+            image: 'https://images-na.ssl-images-amazon.com/images/I/61R7gJadP7L._SX466_.jpg',
             index: index,
             xPosition: null,
             yPosition: null
@@ -29,7 +29,7 @@ export const addAudioToIndexedDB = (name, index, base64) => {
             index: index,
             base64: base64
         }).then(() => {
-            console.log('addedd');
+            console.log('added');
         })
     }
 }
@@ -46,10 +46,21 @@ export const getSpecificMusic = index => {
     }
 }
 
-export const addAudioToLocalStorage = (index, base64) => {
+export const changeImage = (index, image) => {
     return dispatch => {
-        let audio = JSON.parse(localStorage.getItem('audio'));
-        audio[index] = base64;
-        localStorage.setItem('audio', JSON.stringify(audio)); 
+        let app = JSON.parse(localStorage.getItem('app'));
+        let running = JSON.parse(localStorage.getItem('running'));
+        running.active[index].image = image;
+        app.files[index].image = image;
+        localStorage.setItem('app', JSON.stringify(app));
+        localStorage.setItem('running', JSON.stringify(running));
+        dispatch({
+            type: 'REFRESH_DATA',
+            data: JSON.parse(localStorage.getItem('app'))
+        });
+        dispatch({
+            type: 'REFRESH_RUNNING_DATA',
+            data: JSON.parse(localStorage.getItem('running'))
+        });
     }
 }
