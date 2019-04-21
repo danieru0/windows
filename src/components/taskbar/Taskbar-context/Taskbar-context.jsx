@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { runSettingsApplication } from '../../../store/actions/settings';
 import { runCalculatorApplication } from '../../../store/actions/calculator';
 import { runTerminalApplication } from '../../../store/actions/terminal';
+import { runPaintApplication } from '../../../store/actions/paint';
 
 import './Taskbar-context.css';
 
@@ -39,6 +40,10 @@ class TaskbarContext extends Component {
         }
     }
 
+    openPaint = () => {
+        this.props.runPaintApplication(this.props.applications);
+    }
+
     render() {
         return (
             <div className="taskbar__context">
@@ -47,6 +52,12 @@ class TaskbarContext extends Component {
                         <button onClick={this.openSettings} className="taskbar__context-btn">
                             <span className="taskbar__context-icon fa fa-cog"></span>
                             <p className="taskbar__context-text">Settings</p>
+                        </button>
+                    </li>
+                    <li className="taskbar__context-item">
+                        <button onClick={this.openPaint} className="taskbar__context-btn">
+                            <span className="taskbar__context-icon fa fa-palette"></span>
+                            <p className="taskbar__context-text">Paint</p>
                         </button>
                     </li>
                     <li className="taskbar__context-item">
@@ -73,4 +84,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { runSettingsApplication, runCalculatorApplication, runTerminalApplication })(TaskbarContext);
+export default connect(mapStateToProps, { runSettingsApplication, runCalculatorApplication, runTerminalApplication, runPaintApplication })(TaskbarContext);

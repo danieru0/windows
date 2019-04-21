@@ -26,7 +26,7 @@ class ContextMenu extends Component {
 
     renameFile = () => {
         this.props.handleClickedItem();
-        let newFileName = prompt('New file name:');
+        let newFileName = prompt('New file name:', this.props.clickedElement.parentNode.title);
 
         if (newFileName !== null) {
             this.props.changeFileName(this.props.data, newFileName, this.props.clickedElementId);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import { connect } from 'react-redux';
 
-import { removeRunningAppFromLocalStorage, toggleMinimalizeApp, saveProgramPosition } from '../../../store/actions/localStorage';
+import { removeRunningAppFromLocalStorage, toggleMinimalizeApp } from '../../../store/actions/localStorage';
 import { getSpecificMusic, changeImage } from '../../../store/actions/musicPlayer';
 
 import './MusicPlayer.css';
@@ -174,4 +174,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { saveProgramPosition, removeRunningAppFromLocalStorage, toggleMinimalizeApp, getSpecificMusic, changeImage })(MusicPlayer);
+export default connect(mapStateToProps, { removeRunningAppFromLocalStorage, toggleMinimalizeApp, getSpecificMusic, changeImage })(MusicPlayer);

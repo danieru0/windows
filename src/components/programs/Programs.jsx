@@ -8,6 +8,7 @@ import VideoPlayer from '../../components/programs/videoPlayer/VideoPlayer';
 import Settings from './settings/Settings';
 import Calculator from './calculator/Calculator';
 import Terminal from './terminal/Terminal';
+import Paint from './paint/Paint';
 
 import { getRunningApplications } from '../../store/actions/localStorage';
 
@@ -58,6 +59,11 @@ class Programs extends Component {
                                 return (
                                     <Terminal appData={app} key={item} />
                                 ) 
+                            }
+                            if (app.type === 'paint') {
+                                return (
+                                    <Paint appData={app} key={item} />
+                                )
                             }
                             return (
                                 ''
