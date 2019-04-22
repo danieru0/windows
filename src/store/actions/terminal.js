@@ -32,6 +32,7 @@ export const help = () => {
             <p>ls</p>
             <p>rm</p>
             <p>href</p>
+            <p>rename</p>
         `
         dispatch({
             type: 'UPDATE_OUTPUT',
@@ -165,7 +166,7 @@ export const rm = (inProgram, value) => {
         } else {
             dispatch({
                 type: 'UPDATE_OUTPUT',
-                data: `<p>> rm</p><p>Correct syntax: rm "file index"</p>Use 'ls' to get file index<p></p>`
+                data: `<p>> rm</p><p>Correct syntax: rm "file index"</p><p>Use 'ls' to get file index</p>`
             })
         }
     }
@@ -185,6 +186,28 @@ export const href = (inProgram, value) => {
                 type: 'UPDATE_OUTPUT',
                 data: `<p>> href</p><p>Correct syntax: href "url"</p>`
             })
+        }
+    }
+}
+
+export const rename = (inProgram, value) => {
+    return dispatch => {
+        let argument = value.replace('rename', '');
+        let index = argument.split(' ')[1];
+        let name = argument.split(' ')[2];
+        if (index && name) {
+            let app = JSON.parse(localStorage.getItem('app'));
+            app.files[index].name = name;
+            localStorage.setItem('app', JSON.stringify(app));
+            dispatch({
+                type: 'REFRESH_DATA',
+                data: JSON.parse(localStorage.getItem('app'))
+            })
+        } else {
+            dispatch({
+                type: 'UPDATE_OUTPUT',
+                data: `<p>> rename ${index ? index : ''} ${name ? name : ''}</p><p>Correct syntax: rename "index" "name"</p><p>Use 'ls' to get file index</p>`
+            })   
         }
     }
 }
