@@ -8,14 +8,74 @@ import { removeRunningAppFromLocalStorage, toggleMinimalizeApp } from '../../../
 import './VideoPlayer.css'
 
 class VideoPlayer extends Component {
+    constructor() {
+        super();
+        this.state = {
+            videoDuration: '00:00',
+            videoDurationUpdate: '00:00',
+            volumeValue: 0.3,
+            videoPause: false
+        }
+    }
 
     componentDidMount() {
         this.props.getSpecificVideo(this.props.appData.index);
+        this.videoElement.volume = 0.3;
+        this.videoElement.onloadedmetadata = () => {
+            this.setState({
+                videoDuration: this.convertTime(this.videoElement.duration)
+            });
+        }
+        let barWidth = getComputedStyle(this.videoBar).width.split('px')[0];
+        this.videoElement.ontimeupdate = () => {
+            if (this.progressBar) {
+                this.progressBar.style.width = `${this.videoElement.currentTime*barWidth/this.videoElement.duration}px`;
+                this.setState({
+                    videoDurationUpdate: this.convertTime(this.videoElement.currentTime)
+                });
+            }
+        }
     }
 
     componentWillUnmount() {
         document.getElementById('videoElement').src = null;
         this.props.clearVideoReducer();
+    }
+
+    handleBarClick = e => {
+        let rect = this.videoBar.getBoundingClientRect();
+        let mouseX = e.pageX - rect.x;
+        let barWidth = parseInt(getComputedStyle(this.videoBar).width.split('px')[0]);
+        this.videoElement.currentTime = mouseX * this.videoElement.duration / barWidth;
+        this.videoElement.play();
+        this.setState({
+            videoPause: false
+        })
+    }
+
+    handleVolumeChange = e => {
+        this.videoElement.volume = e.target.value;
+        this.setState({
+            volumeValue: e.target.value
+        });
+    }
+
+    videoToggle = () => {
+        this.setState({
+            videoPause: !this.state.videoPause
+        }, () => {
+            this.state.videoPause ? this.videoElement.pause() : this.videoElement.play();
+        })
+    }
+
+    handleResize = () => {
+        if (this.videoElement.requestFullscreen) {
+            this.videoElement.requestFullscreen();
+        } else if (this.videoElement.webkitEnterFullScreen) {
+            this.videoElement.webkitEnterFullScreen();
+        } else if (this.videoElement.mozRequestFullScreen) {
+            this.videoElement.mozRequestFullScreen();
+        }
     }
 
     handleCloseButton = () => {
@@ -24,6 +84,19 @@ class VideoPlayer extends Component {
 
     handleMinimalizeButton = () => {
         this.props.toggleMinimalizeApp(this.props.applications, this.props.appData.index);
+    }
+
+    convertTime = function(time) {
+        var mins = Math.floor(time / 60);
+        if (mins < 10) {
+          mins = '0' + String(mins);
+        }
+        var secs = Math.floor(time % 60);
+        if (secs < 10) {
+          secs = '0' + String(secs);
+        }
+    
+        return mins + ':' + secs;
     }
 
     render() {
@@ -43,7 +116,35 @@ class VideoPlayer extends Component {
                         </div>
                     </div>
                     <div className="videoplayer__content">
-                        <video id="videoElement" src={video.base64} controls autoPlay className="videoplayer__video"></video>
+                        <video ref={r => this.videoElement = r} id="videoElement" controlsList="nodownload" autoPlay src={video.base64} className="videoplayer__video"></video>
+                        <div className="videoplayer__controls">
+                            <div onClick={this.handleBarClick} ref={r => this.videoBar = r} className="videoplayer__defaultBar">
+                                <div ref={r => this.progressBar = r} className="videoplayer__progressBar"></div>
+                            </div>
+                            <div className="videoplayer__wrapper">
+                                <div className="videoplayer__group">
+                                    <button onClick={this.videoToggle} className="videoplayer__button videoplayer__toggle">
+                                        {
+                                            this.state.videoPause ? <span className="fa fa-play"></span> : <span className="fa fa-pause"></span>
+                                        }
+                                    </button>
+                                    <button className="videoplayer__button videoplayer__volume">
+                                        <span className="fa fa-volume-up"></span>
+                                    </button>
+                                    <input type="range" onChange={this.handleVolumeChange} value={this.state.volumeValue} min="0" max="1" step="0.01" className="videoplayer__volume-range"></input>
+                                </div>
+                                <span className="videoplayer__time">
+                                    {
+                                        `${this.state.videoDurationUpdate} / ${this.state.videoDuration}`
+                                    }
+                                </span>
+                                <div className="videoplayer__group">
+                                    <button onClick={this.handleResize} className="videoplayer__button videoplayer__resize">
+                                        <span className="fa fa-expand"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Draggable>
