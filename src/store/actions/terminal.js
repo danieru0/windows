@@ -1,4 +1,4 @@
-import { removeFile, removeRunningAppFromLocalStorage } from './localStorage';
+import { removeFile, removeRunningAppFromLocalStorage, addRunningAppToLocalStorage } from './localStorage';
 
 export const runTerminalApplication = runningApps => {
     return dispatch => {
@@ -36,6 +36,7 @@ export const help = () => {
             <p>passfile</p>
             <p>passfilerm</p>
             <p>kill</p>
+            <p>exec</p>
         `
         dispatch({
             type: 'UPDATE_OUTPUT',
@@ -290,5 +291,25 @@ export const date = () => {
             type: 'UPDATE_OUTPUT',
             data: `<p>> date </p><p>${new Date()}</p>`
         })
+    }
+}
+
+export const exec = (inProgram, value) => {
+    return dispatch => {
+        let index = parseInt(value.replace('exec', ''));
+        let running = JSON.parse(localStorage.getItem('running'));
+        let app = JSON.parse(localStorage.getItem('app'));
+        if (index) {
+            dispatch(addRunningAppToLocalStorage(running, app.files[index]));
+            dispatch({
+                type: 'UPDATE_OUTPUT',
+                data: `<p>> exec ${index}</p><p>Program with index ${index} started</p>`
+            })
+        } else {
+            dispatch({
+                type: 'UPDATE_OUTPUT',
+                data: `<p>> exec </p><p>Correct syntax: exec "index"</p><p>Use 'ls' to get file index</p>`
+            })
+        }
     }
 }
