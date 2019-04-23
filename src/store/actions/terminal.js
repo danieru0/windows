@@ -1,4 +1,4 @@
-import { removeFile } from './localStorage';
+import { removeFile, removeRunningAppFromLocalStorage } from './localStorage';
 
 export const runTerminalApplication = runningApps => {
     return dispatch => {
@@ -35,6 +35,7 @@ export const help = () => {
             <p>rename</p>
             <p>passfile</p>
             <p>passfilerm</p>
+            <p>kill</p>
         `
         dispatch({
             type: 'UPDATE_OUTPUT',
@@ -248,12 +249,12 @@ export const passfilerm = (inProgram, value) => {
             app.files[index].password = null;
             localStorage.setItem('app', JSON.stringify(app));
             dispatch({
-                type: 'UPDATE_OUTPUT',
-                data: `<p>> passfilerm ${index}</p><p>Password removed for file with index: ${index}</p>`
-            })
-            dispatch({
                 type: 'REFRESH_DATA',
                 data: JSON.parse(localStorage.getItem('app'))
+            })
+            dispatch({
+                type: 'UPDATE_OUTPUT',
+                data: `<p>> passfilerm ${index}</p><p>Password removed for file with index: ${index}</p>`
             })
         } else {
             dispatch({
@@ -261,5 +262,33 @@ export const passfilerm = (inProgram, value) => {
                 data: `<p>> passfilerm </p><p>Correct syntax: passfilerm "index"</p><p>Use 'ls' to get file index</p>`
             })
         }
+    }
+}
+
+export const kill = (inProgram, value) => {
+    return dispatch => {
+        let index = parseInt(value.replace('kill', ''));
+        let running = JSON.parse(localStorage.getItem('running'));
+        if (index) {
+            dispatch(removeRunningAppFromLocalStorage(running, index));
+            dispatch({
+                type: 'UPDATE_OUTPUT',
+                data: `<p>> kill ${index}</p><p>Program with index ${index} has been killed</p>`
+            })
+        } else {
+            dispatch({
+                type: 'UPDATE_OUTPUT',
+                data: `<p>> kill </p><p>Correct syntax: kill "index"</p><p>Use 'ls' to get file index</p>`
+            })
+        }
+    }
+}
+
+export const date = () => {
+    return dispatch => {
+        dispatch({
+            type: 'UPDATE_OUTPUT',
+            data: `<p>> date </p><p>${new Date()}</p>`
+        })
     }
 }
