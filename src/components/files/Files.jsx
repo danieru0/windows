@@ -13,6 +13,17 @@ class Files extends Component {
 
     openApp = e => {
         let clickedApp = this.props.files[e.target.id];
+        if (clickedApp.password) {
+            let passwordPrompt = prompt('Password: ');
+            if (passwordPrompt) {
+                if (passwordPrompt !== clickedApp.password) {
+                    this.openApp(e);
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
         if (clickedApp.type !== 'link') {
             let clickedProgram = document.querySelector(clickedApp.type === 'audio' ? '.musicplayer' : '.videoplayer');
             if (!clickedProgram) {

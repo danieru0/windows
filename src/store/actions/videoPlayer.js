@@ -17,19 +17,21 @@ export const createNewVideoFile = (data, title, base64) => {
             type: 'REFRESH_DATA',
             data: JSON.parse(localStorage.getItem('app'))
         });
-        dispatch(addVideoToIndexedDB(title, index, base64));
+        dispatch(addVideoToIndexedDB(title, index, base64, data));
     }
 }
 
-export const addVideoToIndexedDB = (title, index, base64) => {
+export const addVideoToIndexedDB = (title, index, base64, data) => {
     return dispatch => {
         db.videos.add({
             title: title,
             index: index,
             base64: base64
         }).then(() => {
-            console.log('addedd');
-        });
+            console.log('added');
+        }).catch(err => {
+            console.log(err);
+        })
     }
 }
 

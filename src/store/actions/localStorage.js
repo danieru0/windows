@@ -37,7 +37,8 @@ export const initLocalStorageJSON = () => {
                     text: 'THIS IS JUST SIMPLE TEXT',
                     index: 0,
                     xPosition: null,
-                    yPosition: null
+                    yPosition: null,
+                    password: null
                 },
                 1: {
                     name: 'Pliczuś',
@@ -46,7 +47,8 @@ export const initLocalStorageJSON = () => {
                     text: 'NOTEPAD :D',
                     index: 1,
                     xPosition: null,
-                    yPosition: null
+                    yPosition: null,
+                    password: null
                 },
                 2: {
                     name: 'Youtube link',
@@ -55,7 +57,8 @@ export const initLocalStorageJSON = () => {
                     index: 10,
                     background: 'http://icons.iconarchive.com/icons/danleech/simple/256/youtube-icon.png',
                     xPosition: null,
-                    yPosition: null
+                    yPosition: null,
+                    password: null
                 }
             }
         } 

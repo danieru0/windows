@@ -33,6 +33,8 @@ export const help = () => {
             <p>rm</p>
             <p>href</p>
             <p>rename</p>
+            <p>passfile</p>
+            <p>passfilerm</p>
         `
         dispatch({
             type: 'UPDATE_OUTPUT',
@@ -208,6 +210,56 @@ export const rename = (inProgram, value) => {
                 type: 'UPDATE_OUTPUT',
                 data: `<p>> rename ${index ? index : ''} ${name ? name : ''}</p><p>Correct syntax: rename "index" "name"</p><p>Use 'ls' to get file index</p>`
             })   
+        }
+    }
+}
+
+export const passfile = (inProgram, value) => {
+    return dispatch => {
+        let argument = value.replace('passfile', '');
+        let index = argument.split(' ')[1];
+        let password = argument.split(' ')[2];
+        if (index && password) {
+            let app = JSON.parse(localStorage.getItem('app'));
+            app.files[index].password = password;
+            localStorage.setItem('app', JSON.stringify(app));
+            dispatch({
+                type: 'UPDATE_OUTPUT',
+                data: `<p>> passfile ${index} ${password}</p><p>Password changed for file with index: ${index}</p>`
+            })
+            dispatch({
+                type: 'REFRESH_DATA',
+                data: JSON.parse(localStorage.getItem('app'))
+            })
+        } else {
+            dispatch({
+                type: 'UPDATE_OUTPUT',
+                data: `<p>> passfile ${index ? index : ''} ${password ? password : ''}</p><p>Correct syntax: passfile "index" "password"</p><p>Use 'ls' to get file index</p><p>Use 'passfilerm' to remove password</p>`
+            })
+        }
+    }
+}
+
+export const passfilerm = (inProgram, value) => {
+    return dispatch => {
+        let index = parseInt(value.replace('passfilerm', ''));
+        if (index) {
+            let app = JSON.parse(localStorage.getItem('app'));
+            app.files[index].password = null;
+            localStorage.setItem('app', JSON.stringify(app));
+            dispatch({
+                type: 'UPDATE_OUTPUT',
+                data: `<p>> passfilerm ${index}</p><p>Password removed for file with index: ${index}</p>`
+            })
+            dispatch({
+                type: 'REFRESH_DATA',
+                data: JSON.parse(localStorage.getItem('app'))
+            })
+        } else {
+            dispatch({
+                type: 'UPDATE_OUTPUT',
+                data: `<p>> passfilerm </p><p>Correct syntax: passfilerm "index"</p><p>Use 'ls' to get file index</p>`
+            })
         }
     }
 }

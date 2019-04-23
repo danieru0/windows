@@ -8,7 +8,8 @@ export const createNewTxtFile = data => {
             text: '',
             index: isNaN(lastValue) ? 0 : lastValue + 1,
             xPosition: null,
-            yPosition: null
+            yPosition: null,
+            password: null
         }
         localStorage.setItem('app', JSON.stringify(data));
         dispatch({ //Dispatch to localStorage.js
