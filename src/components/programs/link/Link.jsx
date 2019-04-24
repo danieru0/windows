@@ -35,7 +35,7 @@ class Link extends Component {
             this.props.createNewLinkFile(this.props.data, this.state.link, this.state.icon);
             this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.index);
         } else {
-            alert('You need provide link!');
+            alert('You need provide a link!');
         }
     }
 

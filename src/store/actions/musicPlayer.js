@@ -30,6 +30,8 @@ export const addAudioToIndexedDB = (name, index, base64) => {
             base64: base64
         }).then(() => {
             console.log('added');
+        }).catch(err => {
+            console.log(err);
         })
     }
 }

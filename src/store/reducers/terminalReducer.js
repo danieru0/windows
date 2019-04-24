@@ -24,6 +24,11 @@ export default (state = initState, action) => {
                 program: null,
                 output: action.data
             }
+        case 'CLEAR_OUTPUT':
+            return {
+                ...state,
+                output: ''
+            }
         default: return state;
     }
 }

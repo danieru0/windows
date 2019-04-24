@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import { connect } from 'react-redux';
 
-import { help, echo, author, calculator, touch, whoami, ls, rm, href, rename, passfile, passfilerm, kill, date, exec } from '../../../store/actions/terminal';
+import { help, echo, author, calculator, touch, whoami, ls, rm, href, rename, passfile, passfilerm, kill, date, exec, clearOutput } from '../../../store/actions/terminal';
 import { removeRunningAppFromLocalStorage, toggleMinimalizeApp } from '../../../store/actions/localStorage';
 
 import './Terminal.css';
 
 class Terminal extends Component {
+    constructor() {
+        super();
+        this.state = {
+            typing: false
+        }
+    }
 
     componentDidMount() {
         let input = document.getElementById('terminal-input');
@@ -17,12 +23,28 @@ class Terminal extends Component {
         })
     }
 
+    componentDidUpdate() {
+        if (!this.state.typing) {
+            this.props.clearOutput();
+        }
+    }
+    
+    componentWillUnmount() {
+        this.props.clearOutput();
+    }
+
     handleCloseButton = () => {
         this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.appData.index);
     }
 
     handleMinimalizeButton = () => {
         this.props.toggleMinimalizeApp(this.props.applications, this.props.appData.index);
+    }
+
+    toggleTyping = () => {
+        this.setState({
+            typing: true
+        });
     }
 
     handleInputEnter = e => {
@@ -42,8 +64,10 @@ class Terminal extends Component {
                 } else {
                     e.target.value === 'cls' ? this.output.innerHTML = '' : this.handleCloseButton();
                 }
-    
                 e.target.value = '';
+                this.setState({
+                    typing: false
+                })
             }
         }
     }
@@ -73,7 +97,7 @@ class Terminal extends Component {
                             <p>Type 'help' to get command list</p>
                             <p><br /></p>
                         </div>
-                        <span>{program}> </span><input onKeyPress={this.handleInputEnter} id="terminal-input" className="terminal__input"></input>
+                        <span>{program}> </span><input onChange={this.toggleTyping} onKeyPress={this.handleInputEnter} id="terminal-input" className="terminal__input"></input>
                     </div>
                 </div>
             </Draggable>
@@ -90,4 +114,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { help, echo, author, calculator, touch, whoami, ls, rm, href, rename, passfile, passfilerm, kill, date, exec, removeRunningAppFromLocalStorage, toggleMinimalizeApp })(Terminal);
+export default connect(mapStateToProps, { help, echo, author, calculator, touch, whoami, ls, rm, href, rename, passfile, passfilerm, kill, date, exec, clearOutput, removeRunningAppFromLocalStorage, toggleMinimalizeApp })(Terminal);

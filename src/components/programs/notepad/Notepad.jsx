@@ -14,17 +14,17 @@ class Notepad extends Component {
     }
 
     handleCloseButton = () => {
-        this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.appData.index);
+        this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.appData.fileIndex);
     }
 
     handleMinimalizeButton = () => {
-        this.props.toggleMinimalizeApp(this.props.applications, this.props.appData.index);
+        this.props.toggleMinimalizeApp(this.props.applications, this.props.appData.fileIndex);
     }
 
     handleDrag = e => {
         let xPosition = e.x - e.offsetX;
         let yPosition = e.layerY - e.offsetY;
-        this.props.saveProgramPosition(this.props.applications, xPosition, yPosition, this.props.appData.index); 
+        this.props.saveProgramPosition(this.props.applications, xPosition, yPosition, this.props.appData.fileIndex); 
     }
 
     saveNotepadText = () => {
@@ -47,8 +47,8 @@ class Notepad extends Component {
     render() {
         const { appData, applications } = this.props;
         const defaultPosition = {
-            x: applications.active[appData.index].xPosition ? applications.active[appData.index].xPosition : 0,
-            y: applications.active[appData.index].yPosition ? applications.active[appData.index].yPosition : 0
+            x: applications.active[appData.fileIndex].xPosition ? applications.active[appData.fileIndex].xPosition : 0,
+            y: applications.active[appData.fileIndex].yPosition ? applications.active[appData.fileIndex].yPosition : 0
         }
 
         return (

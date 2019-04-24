@@ -160,7 +160,7 @@ export const ls = () => {
 export const rm = (inProgram, value) => {
     return dispatch => {
         let index = value.replace('rm', '');
-        if (index) {
+        if (index !== '' && index.length !== 0 && isNaN(index) !== true) {
             let app = JSON.parse(localStorage.getItem('app'));
             dispatch(removeFile(app, parseInt(index)));
             dispatch({
@@ -198,7 +198,7 @@ export const rename = (inProgram, value) => {
     return dispatch => {
         let argument = value.replace('rename', '');
         let index = argument.split(' ')[1];
-        let name = argument.split(' ')[2];
+        let name = value.replace('rename', '').replace(index, '');
         if (index && name) {
             let app = JSON.parse(localStorage.getItem('app'));
             app.files[index].name = name;
@@ -206,6 +206,10 @@ export const rename = (inProgram, value) => {
             dispatch({
                 type: 'REFRESH_DATA',
                 data: JSON.parse(localStorage.getItem('app'))
+            })
+            dispatch({
+                type: 'UPDATE_OUTPUT',
+                data: `<p>> rename ${index} ${name}</p><p>Name changed for file ${index}</p>`
             })
         } else {
             dispatch({
@@ -245,7 +249,7 @@ export const passfile = (inProgram, value) => {
 export const passfilerm = (inProgram, value) => {
     return dispatch => {
         let index = parseInt(value.replace('passfilerm', ''));
-        if (index) {
+        if (index !== '' && index.length !== 0 && isNaN(index) !== true) {
             let app = JSON.parse(localStorage.getItem('app'));
             app.files[index].password = null;
             localStorage.setItem('app', JSON.stringify(app));
@@ -270,7 +274,7 @@ export const kill = (inProgram, value) => {
     return dispatch => {
         let index = parseInt(value.replace('kill', ''));
         let running = JSON.parse(localStorage.getItem('running'));
-        if (index) {
+        if (index !== '' && index.length !== 0 && isNaN(index) !== true) {
             dispatch(removeRunningAppFromLocalStorage(running, index));
             dispatch({
                 type: 'UPDATE_OUTPUT',
@@ -299,8 +303,23 @@ export const exec = (inProgram, value) => {
         let index = parseInt(value.replace('exec', ''));
         let running = JSON.parse(localStorage.getItem('running'));
         let app = JSON.parse(localStorage.getItem('app'));
-        if (index) {
-            dispatch(addRunningAppToLocalStorage(running, app.files[index]));
+        if (index !== '' && index.length !== 0 && isNaN(index) !== true) {
+            if (app.files[index].password) {
+                let passwordPrompt = prompt('Password: ');
+                if (passwordPrompt) {
+                    if (passwordPrompt !== app.files[index].password) {
+                        exec(inProgram, value);
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+            if (app.files[index].type === 'link') {
+                window.open(app.files[index].href);
+            } else {
+                dispatch(addRunningAppToLocalStorage(running, app.files[index]));
+            }
             dispatch({
                 type: 'UPDATE_OUTPUT',
                 data: `<p>> exec ${index}</p><p>Program with index ${index} started</p>`
@@ -311,5 +330,13 @@ export const exec = (inProgram, value) => {
                 data: `<p>> exec </p><p>Correct syntax: exec "index"</p><p>Use 'ls' to get file index</p>`
             })
         }
+    }
+}
+
+export const clearOutput = () => {
+    return dispatch => {
+        dispatch({
+            type: 'CLEAR_OUTPUT'
+        })
     }
 }

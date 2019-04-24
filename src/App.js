@@ -68,7 +68,7 @@ class App extends Component {
     const reader = new FileReader();
     reader.onload = e => {
       if (inputType === 'audioInput') {
-        if (file.type === 'audio/mp3') {
+        if (file.type === 'audio/mp3' || file.type === 'audio/mpeg') {
           this.props.createNewAudioFile(this.props.data, file.name, e.target.result);
         }
       }

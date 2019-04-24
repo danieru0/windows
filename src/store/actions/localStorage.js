@@ -31,7 +31,7 @@ export const initLocalStorageJSON = () => {
             taskbarContext: false,
             files: {
                 0: {
-                    name: 'Plik testowy',
+                    name: 'Text file',
                     type: 'txt',
                     background: 'http://icons.iconarchive.com/icons/pelfusion/flat-file-type/256/txt-icon.png',
                     text: 'THIS IS JUST SIMPLE TEXT',
@@ -41,20 +41,10 @@ export const initLocalStorageJSON = () => {
                     password: null
                 },
                 1: {
-                    name: 'Pliczuś',
-                    type: 'txt',
-                    background: 'http://icons.iconarchive.com/icons/pelfusion/flat-file-type/256/txt-icon.png',
-                    text: 'NOTEPAD :D',
-                    index: 1,
-                    xPosition: null,
-                    yPosition: null,
-                    password: null
-                },
-                2: {
                     name: 'Youtube link',
                     type: 'link',
                     href: 'https://www.youtube.pl',
-                    index: 10,
+                    index: 1,
                     background: 'http://icons.iconarchive.com/icons/danleech/simple/256/youtube-icon.png',
                     xPosition: null,
                     yPosition: null,
@@ -107,19 +97,19 @@ export const getRunningApplications = () => {
 export const addRunningAppToLocalStorage = (runningApps, app) => {
     return dispatch => {
         let lastValue = parseInt(Object.keys(runningApps.active)[Object.keys(runningApps.active).length - 1]);
-        if (app.index !== lastValue) {
-            runningApps.active[app.index] = app;
-            runningApps.active[app.index].minimalized = false;
-            runningApps.active[app.index].xPosition = null;
-            runningApps.active[app.index].yPosition = null;
-            localStorage.setItem('running', JSON.stringify(runningApps));
-            dispatch({
-                type: 'REFRESH_RUNNING_DATA',
-                data: JSON.parse(localStorage.getItem('running'))
-            });
-        } else {
-            dispatch(toggleMinimalizeApp(runningApps, app.index));
-        }
+        let index = isNaN(lastValue) ? 0 : lastValue + 1;
+        let appIndex = app.index;
+        runningApps.active[index] = app;
+        runningApps.active[index].fileIndex = index;
+        runningApps.active[index].index = appIndex;
+        runningApps.active[index].minimalized = false;
+        runningApps.active[index].xPosition = null;
+        runningApps.active[index].yPosition = null;
+        localStorage.setItem('running', JSON.stringify(runningApps));
+        dispatch({
+            type: 'REFRESH_RUNNING_DATA',
+            data: JSON.parse(localStorage.getItem('running'))
+        });
     }
 }
 

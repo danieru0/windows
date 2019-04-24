@@ -68,11 +68,11 @@ class MusicPlayer extends Component {
 
 
     handleCloseButton = () => {
-        this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.appData.index);
+        this.props.removeRunningAppFromLocalStorage(this.props.applications, this.props.appData.fileIndex);
     }
 
     handleMinimalizeButton = () => {
-        this.props.toggleMinimalizeApp(this.props.applications, this.props.appData.index);
+        this.props.toggleMinimalizeApp(this.props.applications, this.props.appData.fileIndex);
     }
 
     handleRangeChange = e => {

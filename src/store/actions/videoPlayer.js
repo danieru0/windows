@@ -4,7 +4,7 @@ export const createNewVideoFile = (data, title, base64) => {
     return dispatch => {
         let lastValue = parseInt(Object.keys(data.files)[Object.keys(data.files).length - 1]);
         let index = isNaN(lastValue) ? 0 : lastValue + 1;
-        data.files[isNaN(lastValue) ? 0 : lastValue + 1] = {
+        data.files[index] = {
             name: title,
             type: 'video',
             background: 'https://cdn0.iconfinder.com/data/icons/file-names-26/512/23-512.png',
@@ -21,7 +21,7 @@ export const createNewVideoFile = (data, title, base64) => {
     }
 }
 
-export const addVideoToIndexedDB = (title, index, base64, data) => {
+export const addVideoToIndexedDB = (title, index, base64) => {
     return dispatch => {
         db.videos.add({
             title: title,
