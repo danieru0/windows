@@ -37,6 +37,7 @@ export const help = () => {
             <p>passfilerm</p>
             <p>kill</p>
             <p>exec</p>
+            <p>ps</p>
         `
         dispatch({
             type: 'UPDATE_OUTPUT',
@@ -283,7 +284,7 @@ export const kill = (inProgram, value) => {
         } else {
             dispatch({
                 type: 'UPDATE_OUTPUT',
-                data: `<p>> kill </p><p>Correct syntax: kill "index"</p><p>Use 'ls' to get file index</p>`
+                data: `<p>> kill </p><p>Correct syntax: kill "index"</p><p>Use 'ps' to get active programs</p>`
             })
         }
     }
@@ -337,6 +338,21 @@ export const clearOutput = () => {
     return dispatch => {
         dispatch({
             type: 'CLEAR_OUTPUT'
+        })
+    }
+}
+
+export const ps = () => {
+    return dispatch => {
+        let running = JSON.parse(localStorage.getItem('running'));
+        let output;
+        Object.keys(running.active).map(item => {
+            output += `<p>${item} ${running.active[item].name}.${running.active[item].type}</p>`
+            return null;
+        })
+        dispatch({
+            type: 'UPDATE_OUTPUT',
+            data: `<p>> ps</p><p>${output.replace('undefined', '')}</p>`
         })
     }
 }

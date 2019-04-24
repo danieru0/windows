@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import { connect } from 'react-redux';
 
-import { help, echo, author, calculator, touch, whoami, ls, rm, href, rename, passfile, passfilerm, kill, date, exec, clearOutput } from '../../../store/actions/terminal';
+import { help, echo, author, calculator, touch, whoami, ls, rm, href, rename, passfile, passfilerm, kill, date, exec, clearOutput, ps } from '../../../store/actions/terminal';
 import { removeRunningAppFromLocalStorage, toggleMinimalizeApp } from '../../../store/actions/localStorage';
 
 import './Terminal.css';
@@ -114,4 +114,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { help, echo, author, calculator, touch, whoami, ls, rm, href, rename, passfile, passfilerm, kill, date, exec, clearOutput, removeRunningAppFromLocalStorage, toggleMinimalizeApp })(Terminal);
+export default connect(mapStateToProps, { help, echo, author, calculator, touch, whoami, ls, rm, href, rename, passfile, passfilerm, kill, date, exec, clearOutput, ps, removeRunningAppFromLocalStorage, toggleMinimalizeApp })(Terminal);
