@@ -103,7 +103,7 @@ class VideoPlayer extends Component {
         const { appData, video } = this.props;
         return (
             <Draggable handle=".videoplayer__topbar" bounds="body">
-                <div className={appData.minimalized ? "videoplayer minimalized" : "videoplayer"}>
+                <div ref={r => this.videoPlayer = r} onClick={() => this.props.onClick(this.videoPlayer)} className={appData.minimalized ? "videoplayer minimalized" : "videoplayer"}>
                     <div className="videoplayer__topbar">
                         <span className="videoplayer__name">Video Player</span>
                         <div className="videoplayer__program-options">

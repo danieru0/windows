@@ -36,14 +36,6 @@ class Notepad extends Component {
         document.execCommand(e.currentTarget.value, false);
     }
 
-    makeFirst = () => {
-        this.notepad.classList.add('active');
-    }
-
-    removeFirst = () => {
-        this.notepad.classList.remove('active');
-    }
-
     render() {
         const { appData, applications } = this.props;
         const defaultPosition = {
@@ -52,8 +44,8 @@ class Notepad extends Component {
         }
 
         return (
-            <Draggable defaultPosition={defaultPosition} onDrag={(e) => {this.makeFirst(e); this.handleDrag(e)}} handle=".notepad__topbar" bounds="body">
-                <div ref={r => this.notepad = r} onBlur={this.removeFirst} onFocus={this.makeFirst} className={appData.minimalized ? "notepad minimalized" : "notepad"}>
+            <Draggable defaultPosition={defaultPosition} onDrag={(e) => this.handleDrag(e)} handle=".notepad__topbar" bounds="body">
+                <div ref={r => this.notepad = r} onClick={() => this.props.onClick(this.notepad)} className={appData.minimalized ? "notepad minimalized" : "notepad"}>
                     <div className="notepad__topbar">
                         <div className="notepad__options">
                             <button className="notepad__btn btn-save" onClick={this.saveNotepadText}>

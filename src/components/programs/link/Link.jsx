@@ -43,7 +43,7 @@ class Link extends Component {
         const { minimalized } = this.props;
         return (
             <Draggable handle=".link__topbar" bounds="body">
-                <div ref={r => this.linkProgram = r} className={minimalized ? "link minimalized" : "link"}>
+                <div ref={r => this.linkProgram = r} onClick={() => this.props.onClick(this.linkProgram)} className={minimalized ? "link minimalized" : "link"}>
                     <div className="link__topbar">
                         <span className="link__name">Link</span>
                         <div className="link__program-options">

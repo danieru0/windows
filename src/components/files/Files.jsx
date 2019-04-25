@@ -26,15 +26,24 @@ class Files extends Component {
         }
         if (clickedApp.type !== 'link') {
             let clickedProgram = document.querySelector(clickedApp.type === 'audio' ? '.musicplayer' : '.videoplayer');
-            if (!clickedProgram) {
+
+            if (clickedApp.type !== 'audio' && clickedApp.type !== 'video') {
                 this.props.addRunningAppToLocalStorage(this.props.applications, clickedApp);
             } else {
                 if (clickedApp.type === 'audio') {
-                    let position = clickedProgram.getBoundingClientRect();
-                    this.props.loadNewMusic(clickedProgram.id, clickedApp.index, position.left, position.top);
+                    if (clickedProgram) {
+                        let position = clickedProgram.getBoundingClientRect();
+                        this.props.loadNewMusic(clickedProgram.id, clickedApp.index, position.left, position.top);
+                    } else {
+                        this.props.addRunningAppToLocalStorage(this.props.applications, clickedApp);
+                    }
                 }
                 if (clickedApp.type === 'video') {
-                    this.props.getSpecificVideo(clickedApp.index);
+                    if (clickedProgram) {
+                        this.props.getSpecificVideo(clickedApp.index);
+                    } else {
+                        this.props.addRunningAppToLocalStorage(this.props.applications, clickedApp);
+                    }
                 }
             }
         } else {

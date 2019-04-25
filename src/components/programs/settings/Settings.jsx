@@ -31,7 +31,7 @@ class Settings extends Component {
         const { appData } = this.props;
         return (
             <Draggable handle=".settings__topbar" bounds="body">
-                <div className={appData.minimalized ? "settings minimalized" : "settings"}>
+                <div ref={r => this.settings = r} onClick={() => this.props.onClick(this.settings)} className={appData.minimalized ? "settings minimalized" : "settings"}>
                     <div className="settings__topbar">
                         <span className="settings__name">Settings</span>
                         <div className="settings__program-options">

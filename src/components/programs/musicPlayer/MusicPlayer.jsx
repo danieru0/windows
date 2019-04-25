@@ -117,7 +117,7 @@ class MusicPlayer extends Component {
         }
         return (
             <Draggable defaultPosition={defaultPosition} handle=".musicplayer__topbar" bounds="body">
-                <div id={appData.index} className={appData.minimalized ? "musicplayer minimalized" : "musicplayer"}>
+                <div ref={r => this.musicElement = r} onClick={() => this.props.onClick(this.musicElement)} id={appData.fileIndex} className={appData.minimalized ? "musicplayer minimalized" : "musicplayer"}>
                     <audio autoPlay ref={r => this.audioElement = r} src={music ? music.base64 : ''}></audio>
                     <div className="musicplayer__topbar">
                         <span className="musicplayer__name">Music Player</span>

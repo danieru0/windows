@@ -52,10 +52,13 @@ export const loadNewMusic = (activePlayer, clickedMusic, xPosition, yPosition) =
     return dispatch =>   {
         let running = JSON.parse(localStorage.getItem('running'));
         let app = JSON.parse(localStorage.getItem('app'));
+        let lastValue = parseInt(Object.keys(running.active)[Object.keys(running.active).length - 1]);
+        let index = isNaN(lastValue) ? 0 : lastValue + 1;
         delete running.active[activePlayer];
-        running.active[clickedMusic] = app.files[clickedMusic];
-        running.active[clickedMusic].xPosition = xPosition;
-        running.active[clickedMusic].yPosition = yPosition;
+        running.active[index] = app.files[clickedMusic];
+        running.active[index].fileIndex = index;
+        running.active[index].xPosition = xPosition;
+        running.active[index].yPosition = yPosition;
         localStorage.setItem('running', JSON.stringify(running));
         dispatch({
             type: 'REFRESH_RUNNING_DATA',

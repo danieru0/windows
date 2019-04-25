@@ -80,7 +80,7 @@ class Terminal extends Component {
         }
         return (
             <Draggable handle=".terminal__topbar" bounds="body">
-                <div id="terminal" className={appData.minimalized ? "terminal minimalized" : "terminal"}>
+                <div id="terminal" ref={r => this.terminal = r} onClick={() => this.props.onClick(this.terminal)} className={appData.minimalized ? "terminal minimalized" : "terminal"}>
                     <div className="terminal__topbar">
                         <span className="terminal__name">Terminal</span>
                         <div className="terminal__program-options">

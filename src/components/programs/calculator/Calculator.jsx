@@ -44,7 +44,7 @@ class Calculator extends Component {
         const { appData } = this.props;
         return (
             <Draggable handle=".calculator__topbar" bounds="body">
-                <div id="calculator" className={appData.minimalized ? "calculator minimalized" : "calculator"}>
+                <div id="calculator" ref={r => this.calculator = r} onClick={() => this.props.onClick(this.calculator)} className={appData.minimalized ? "calculator minimalized" : "calculator"}>
                     <div className="calculator__topbar">
                         <span className="calculator__name">Calculator</span>
                         <div className="calculator__program-options">

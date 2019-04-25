@@ -107,7 +107,7 @@ class Paint extends Component {
         const { appData } = this.props;
         return (
             <Draggable handle=".paint__topbar" bounds="body">
-                <div className={appData.minimalized ? "paint minimalized" : "paint"}>
+                <div ref={r => this.paint = r} onClick={() => this.props.onClick(this.paint)} className={appData.minimalized ? "paint minimalized" : "paint"}>
                     <div className="paint__topbar">
                         <span className="paint__name">Paint</span>
                         <div className="paint__program-options">

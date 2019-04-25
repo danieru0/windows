@@ -17,6 +17,10 @@ class Programs extends Component {
         this.props.getRunningApplications();
     }
 
+    makeFirst = program => {
+        program.parentNode.insertBefore(program, document.querySelector('.taskbar'));
+    }
+
     render() {
         const { applications } = this.props
         return (
@@ -27,42 +31,42 @@ class Programs extends Component {
                             let app = applications.active[item];
                             if (app.type === 'txt') {
                                 return (
-                                    <Notepad appData={app} key={item} />
+                                    <Notepad onClick={this.makeFirst} appData={app} key={item} />
                                 )
                             }
                             if (app.type === 'link') {
                                 return (
-                                    <Link minimalized={app.minimalized} index={app.index} key={item} />
+                                    <Link onClick={this.makeFirst} minimalized={app.minimalized} index={app.index} key={item} />
                                 )
                             }
                             if (app.type === 'audio') {
                                 return (
-                                    <MusicPlayer appData={app} key={item} />
+                                    <MusicPlayer onClick={this.makeFirst} appData={app} key={item} />
                                 )
                             }
                             if (app.type === 'video') {
                                 return (
-                                    <VideoPlayer appData={app} key={item} />
+                                    <VideoPlayer onClick={this.makeFirst} appData={app} key={item} />
                                 )
                             }
                             if (app.type === 'settings') {
                                 return (
-                                    <Settings appData={app} key={item} />
+                                    <Settings onClick={this.makeFirst} appData={app} key={item} />
                                 )
                             }
                             if (app.type === 'calculator') {
                                 return (
-                                    <Calculator appData={app} key={item} />
+                                    <Calculator onClick={this.makeFirst} appData={app} key={item} />
                                 )
                             }
                             if (app.type === 'terminal') {
                                 return (
-                                    <Terminal appData={app} key={item} />
+                                    <Terminal onClick={this.makeFirst} appData={app} key={item} />
                                 ) 
                             }
                             if (app.type === 'paint') {
                                 return (
-                                    <Paint appData={app} key={item} />
+                                    <Paint onClick={this.makeFirst} appData={app} key={item} />
                                 )
                             }
                             return (
