@@ -18,7 +18,9 @@ class Programs extends Component {
     }
 
     makeFirst = program => {
-        program.parentNode.insertBefore(program, document.querySelector('.taskbar'));
+        if (program.nextElementSibling.className !== 'taskbar') {
+            program.parentNode.insertBefore(program, document.querySelector('.taskbar'));
+        }
     }
 
     render() {
