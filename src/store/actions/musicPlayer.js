@@ -68,11 +68,11 @@ export const loadNewMusic = (activePlayer, clickedMusic, xPosition, yPosition) =
     }
 }
 
-export const changeImage = (index, image) => {
+export const changeImage = (index, fileIndex, image) => {
     return dispatch => {
         let app = JSON.parse(localStorage.getItem('app'));
         let running = JSON.parse(localStorage.getItem('running'));
-        running.active[index].image = image;
+        running.active[fileIndex].image = image;
         app.files[index].image = image;
         localStorage.setItem('app', JSON.stringify(app));
         localStorage.setItem('running', JSON.stringify(running));

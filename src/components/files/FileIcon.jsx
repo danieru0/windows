@@ -6,10 +6,27 @@ import { saveFilePosition } from '../../store/actions/localStorage';
 
 class FileIcon extends Component {
 
-    handleDrag = (e) => {
+    handleDrag = e => {
         let xPosition = e.x - e.offsetX;
         let yPosition = e.layerY - e.offsetY;
         this.props.saveFilePosition(this.props.data, xPosition, yPosition, e.target.id);
+        if (e.target.className !== 'App') {
+            if (e.target.className === 'file__overlay') {
+                if (e.target.parentElement.nextElementSibling.className !== 'taskbar') {
+                    e.target.parentElement.parentElement.insertBefore(e.target.parentElement, document.querySelector('.taskbar'));
+                }
+            } else {
+                if (document.querySelector('.musicplayer:hover')) {
+                    document.querySelector('.App').insertBefore(this.file, document.querySelector('.taskbar'));
+                    this.file.style.zIndex = 3;
+                }
+            }
+
+        }
+    }
+
+    handleStop = () => {
+        this.file.style.zIndex = 'auto';
     }
 
     render() {
@@ -26,8 +43,8 @@ class FileIcon extends Component {
         }
 
         return (
-            <Draggable defaultPosition={defaultPosition}  onDrag={this.handleDrag} bounds="body">
-                <div title={name} className="file">
+            <Draggable defaultPosition={defaultPosition} onStop={this.handleStop} onDrag={this.handleDrag} bounds="body">
+                <div ref={r => this.file = r} title={name} className="file">
                     <div onDoubleClick={this.props.onDoubleClick} id={index} className="file__overlay"></div>
                     <img className="file__img" alt="file" src={background}></img>
                     <p className="file__name">{shortName ? shortName : name}</p>

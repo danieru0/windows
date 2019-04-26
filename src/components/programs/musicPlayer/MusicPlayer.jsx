@@ -105,10 +105,9 @@ class MusicPlayer extends Component {
     changeImage = () => {
         let urlPrompt = prompt('URL: ');
         if (urlPrompt) {
-            this.props.changeImage(this.props.appData.index, urlPrompt);
+            this.props.changeImage(this.props.appData.index, this.props.appData.fileIndex, urlPrompt);
         }
     }
-
     render() {
         const { appData, music } = this.props;
         const defaultPosition = {

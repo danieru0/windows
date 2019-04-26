@@ -50,7 +50,8 @@ export const initLocalStorageJSON = () => {
                     yPosition: null,
                     password: null
                 }
-            }
+            },
+            folders: {}
         } 
         localStorage.setItem('app', JSON.stringify(appJSON));
         let applications = {
