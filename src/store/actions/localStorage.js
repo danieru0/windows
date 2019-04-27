@@ -50,8 +50,7 @@ export const initLocalStorageJSON = () => {
                     yPosition: null,
                     password: null
                 }
-            },
-            folders: {}
+            }
         } 
         localStorage.setItem('app', JSON.stringify(appJSON));
         let applications = {
@@ -166,6 +165,9 @@ export const removeFile = (data, appIndex) => {
         }
         if (data.files[appIndex].type === 'video') {
             db.videos.where('index').equals(Number(appIndex)).delete();
+        }
+        if (data.files[appIndex].type === 'folder') {
+            delete data.folders[appIndex];
         }
         delete data.files[appIndex];
         localStorage.setItem('app', JSON.stringify(data));

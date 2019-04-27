@@ -15,13 +15,7 @@ class FileIcon extends Component {
                 if (e.target.parentElement.nextElementSibling.className !== 'taskbar') {
                     e.target.parentElement.parentElement.insertBefore(e.target.parentElement, document.querySelector('.taskbar'));
                 }
-            } else {
-                if (document.querySelector('.musicplayer:hover')) {
-                    document.querySelector('.App').insertBefore(this.file, document.querySelector('.taskbar'));
-                    this.file.style.zIndex = 3;
-                }
             }
-
         }
     }
 
