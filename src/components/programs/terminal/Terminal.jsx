@@ -18,9 +18,6 @@ class Terminal extends Component {
     componentDidMount() {
         let input = document.getElementById('terminal-input');
         input.focus();
-        input.addEventListener('blur', () => {
-            input.focus();
-        })
     }
 
     componentDidUpdate() {
@@ -92,7 +89,7 @@ class Terminal extends Component {
                             </button>
                         </div>
                     </div>
-                    <div id="terminal-content" className="terminal__content">
+                    <div id="terminal-content" onClick={() => document.getElementById('terminal-input').focus()} className="terminal__content">
                         <div ref={r => this.output = r} className="terminal__output">
                             <p>Type 'help' to get command list</p>
                             <p><br /></p>

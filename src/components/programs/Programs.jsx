@@ -9,6 +9,7 @@ import Settings from './settings/Settings';
 import Calculator from './calculator/Calculator';
 import Terminal from './terminal/Terminal';
 import Paint from './paint/Paint';
+import ImageViewer from './imageViewer/ImageViewer';
 
 import { getRunningApplications } from '../../store/actions/localStorage';
 
@@ -69,6 +70,11 @@ class Programs extends Component {
                             if (app.type === 'paint') {
                                 return (
                                     <Paint onClick={this.makeFirst} appData={app} key={item} />
+                                )
+                            }
+                            if (app.type === 'image') {
+                                return (
+                                    <ImageViewer onClick={this.makeFirst} appData={app} key={item} />
                                 )
                             }
                             return (

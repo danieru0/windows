@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getLocalStorageJSON } from './store/actions/localStorage';
 import { createNewAudioFile } from './store/actions/musicPlayer';
 import { createNewVideoFile } from './store/actions/videoPlayer';  
+import { createNewImageFile } from './store/actions/imageViewer';
 
 import LoadingScreen from './components/loadingScreen/loadingScreen';
 import Files from './components/files/Files';
@@ -77,6 +78,11 @@ class App extends Component {
           this.props.createNewVideoFile(this.props.data, file.name, e.target.result);
         }
       }
+      if (inputType === 'imageInput') {
+        if (file.type === 'image/jpeg') {
+          this.props.createNewImageFile(this.props.data, file.name, e.target.result);
+        }
+      }
     }
     reader.readAsDataURL(e.target.files[0]);
   }
@@ -89,6 +95,9 @@ class App extends Component {
       case 'mp4':
         document.getElementById('videoInput').click();
         break;
+      case 'jpg':
+        document.getElementById('imageInput').click();
+        break;
       default: break;
     }
   }
@@ -100,6 +109,7 @@ class App extends Component {
         <div style={{ backgroundImage: `url(${data.wallpapers.active})` }} className="App">
           <input name="audio" accept="audio/mp3" onChange={this.handleInputFileChange} style={{display: 'none'}} type="file" id="audioInput"></input>
           <input name="video" accept="video/mp4" onChange={this.handleInputFileChange} style={{display: 'none'}} type="file" id="videoInput"></input>
+          <input name="image" accept="image/jpeg" onChange={this.handleInputFileChange} style={{display: 'none'}} type="file" id="imageInput"></input>
           <StartText />
           <Files files={data.files} />
           <Programs />
@@ -119,4 +129,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getLocalStorageJSON, createNewAudioFile, createNewVideoFile })(App);
+export default connect(mapStateToProps, { getLocalStorageJSON, createNewAudioFile, createNewVideoFile, createNewImageFile })(App);

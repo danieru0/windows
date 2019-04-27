@@ -166,8 +166,8 @@ export const removeFile = (data, appIndex) => {
         if (data.files[appIndex].type === 'video') {
             db.videos.where('index').equals(Number(appIndex)).delete();
         }
-        if (data.files[appIndex].type === 'folder') {
-            delete data.folders[appIndex];
+        if (data.files[appIndex].type === 'image') {
+            db.images.where('index').equals(Number(appIndex)).delete();
         }
         delete data.files[appIndex];
         localStorage.setItem('app', JSON.stringify(data));

@@ -67,6 +67,9 @@ class ContextMenu extends Component {
                                 <li onClick={() => {this.props.openInputFile('mp4'); this.props.handleClickedItem();}} className="contextMenu__item">
                                     Import mp4 file
                                 </li>
+                                <li onClick={() => {this.props.openInputFile('jpg'); this.props.handleClickedItem();}} className="contextMenu__item">
+                                    Import jpg file
+                                </li>
                             </>
                         ) : (
                             ''
