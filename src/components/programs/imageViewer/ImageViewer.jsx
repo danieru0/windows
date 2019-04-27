@@ -21,12 +21,18 @@ class ImageViewer extends Component {
             this.setState({
                 image: result[0].base64
             }, () => {
-                mouseWheelZoom({
+                this.mw = mouseWheelZoom({
                     element: document.querySelector('.imageviewer__image'),
                     zoomStep: .25
                 })
             })
         })
+    }
+
+    handleResizeButton = () => {
+        this.imageviewer.classList.toggle('maximize');
+        this.imageviewer.style.transform = null;
+        this.mw.reset();
     }
 
     handleCloseButton = () => {
@@ -40,13 +46,16 @@ class ImageViewer extends Component {
     render() {
         return (
             <Draggable handle=".imageviewer__topbar" bounds="body">
-                <div className="imageviewer">
+                <div ref={r => this.imageviewer = r} onClick={() => this.props.onClick(this.imageviewer)} className="imageviewer">
                     <div className="imageviewer__topbar">
                         <span className="imageviewer__name">Image Viewer</span>
                         <div className="imageviewer__program-options">
                             <button onClick={this.handleMinimalizeButton} className="imageviewer__minimalize">
                                 <span className="imageviewer__minimalize-icon fa fa-window-minimize"></span>
-                            </button>                            
+                            </button>      
+                            <button onClick={this.handleResizeButton} className="imageviewer__resize">
+                                <span className="imageviewer__resize-icon fa fa-window-maximize"></span>
+                            </button>                      
                             <button onClick={this.handleCloseButton} className="imageviewer__close">
                                 <span className="imageviewer__close-icon fa fa-times"></span>
                             </button>

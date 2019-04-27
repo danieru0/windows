@@ -10,6 +10,14 @@
 .imageviewer.minimalized {
     display: none;
 }
+.imageviewer.maximize {
+    width: 100%;
+    height: calc(100% - 50px);
+}
+
+.imageviewer.maximize .imageviewer__topbar {
+    width: 100%;
+}
 
 .imageviewer__topbar {
     width: 700px;
@@ -42,6 +50,16 @@
     outline: none;
     cursor: pointer;
     position: relative;
+}
+
+.imageviewer__resize {
+    border: none;
+    background: blue;
+    color: #ffffff;
+    width: 40px;
+    height: 20px;
+    outline: none;
+    cursor: pointer;
 }
 
 .imageviewer__minimalize {
