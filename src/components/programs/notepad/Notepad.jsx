@@ -69,6 +69,11 @@ class Notepad extends Component {
         }
     }
 
+    handleResizeButton = () => {
+        this.notepad.classList.toggle('maximize');
+        this.notepad.style.transform = null;
+    }
+
     render() {
         const { appData, applications } = this.props;
         const defaultPosition = {
@@ -84,7 +89,10 @@ class Notepad extends Component {
                         <div className="notepad__program-options">
                             <button onClick={this.handleMinimalizeButton} className="notepad__minimalize">
                                 <span className="notepad__minimalize-icon fa fa-window-minimize"></span>
-                            </button>                            
+                            </button>        
+                            <button onClick={this.handleResizeButton} className="notepad__resize">
+                                <span className="notepad__resize-icon fa fa-window-maximize"></span>
+                            </button>                       
                             <button onClick={this.handleCloseButton} className="notepad__close">
                                 <span className="notepad__close-icon fa fa-times"></span>
                             </button>

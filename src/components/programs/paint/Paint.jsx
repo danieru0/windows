@@ -102,7 +102,6 @@ class Paint extends Component {
         this.props.toggleMinimalizeApp(this.props.applications, this.props.appData.index);
     }
 
-
     render() {
         const { appData } = this.props;
         return (
@@ -113,7 +112,7 @@ class Paint extends Component {
                         <div className="paint__program-options">
                             <button onClick={this.handleMinimalizeButton} className="paint__minimalize">
                                 <span className="paint__minimalize-icon fa fa-window-minimize"></span>
-                            </button>                            
+                            </button>                  
                             <button onClick={this.handleCloseButton} className="paint__close">
                                 <span className="paint__close-icon fa fa-times"></span>
                             </button>
