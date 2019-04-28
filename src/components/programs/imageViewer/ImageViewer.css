@@ -5,6 +5,7 @@
     position: absolute;
     top: 0;
     background: #FBFBFD;
+    border: 1px solid #000000;
 }
 
 .imageviewer.minimalized {
