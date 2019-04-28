@@ -14,7 +14,8 @@ class VideoPlayer extends Component {
             videoDuration: '00:00',
             videoDurationUpdate: '00:00',
             volumeValue: 0.3,
-            videoPause: false
+            videoPause: false,
+            maximize: false
         }
     }
 
@@ -26,10 +27,10 @@ class VideoPlayer extends Component {
                 videoDuration: this.convertTime(this.videoElement.duration)
             });
         }
-        let barWidth = getComputedStyle(this.videoBar).width.split('px')[0];
+        this.barWidth = getComputedStyle(this.videoBar).width.split('px')[0];
         this.videoElement.ontimeupdate = () => {
             if (this.progressBar) {
-                this.progressBar.style.width = `${this.videoElement.currentTime*barWidth/this.videoElement.duration}px`;
+                this.progressBar.style.width = `${this.videoElement.currentTime*this.barWidth/this.videoElement.duration}px`;
                 this.setState({
                     videoDurationUpdate: this.convertTime(this.videoElement.currentTime)
                 });
@@ -45,8 +46,8 @@ class VideoPlayer extends Component {
     handleBarClick = e => {
         let rect = this.videoBar.getBoundingClientRect();
         let mouseX = e.pageX - rect.x;
-        let barWidth = parseInt(getComputedStyle(this.videoBar).width.split('px')[0]);
-        this.videoElement.currentTime = mouseX * this.videoElement.duration / barWidth;
+        this.barWidth = parseInt(getComputedStyle(this.videoBar).width.split('px')[0]);
+        this.videoElement.currentTime = mouseX * this.videoElement.duration / this.barWidth;
         this.videoElement.play();
         this.setState({
             videoPause: false
@@ -86,6 +87,12 @@ class VideoPlayer extends Component {
         this.props.toggleMinimalizeApp(this.props.applications, this.props.appData.fileIndex);
     }
 
+    handleResizeButton = () => {
+        this.setState({ maximize: !this.state.maximize });
+        this.videoPlayer.style.transform = null;
+        this.videoPlayer.style.top = 0;
+    }
+
     convertTime = function(time) {
         var mins = Math.floor(time / 60);
         if (mins < 10) {
@@ -103,13 +110,18 @@ class VideoPlayer extends Component {
         const { appData, video } = this.props;
         return (
             <Draggable handle=".videoplayer__topbar" bounds="body">
-                <div ref={r => this.videoPlayer = r} onClick={() => this.props.onClick(this.videoPlayer)} className={appData.minimalized ? "videoplayer minimalized" : "videoplayer"}>
+                <div ref={r => this.videoPlayer = r} onClick={() => this.props.onClick(this.videoPlayer)} className={
+                    appData.minimalized ? (this.state.maximize ? "videoplayer minimalized maximize" : "videoplayer minimalized") : (this.state.maximize ? "videoplayer maximize" : "videoplayer")
+                    }>
                     <div className="videoplayer__topbar">
                         <span className="videoplayer__name">Video Player</span>
                         <div className="videoplayer__program-options">
                             <button onClick={this.handleMinimalizeButton} className="videoplayer__minimalize">
                                 <span className="videoplayer__minimalize-icon fa fa-window-minimize"></span>
                             </button>
+                            <button onClick={this.handleResizeButton} className="videoplayer__resize">
+                                <span className="videoplayer__resize-icon fa fa-window-maximize"></span>
+                            </button>    
                             <button onClick={this.handleCloseButton} className="videoplayer__close">
                                 <span className="videoplayer__close-icon fa fa-times"></span>
                             </button>

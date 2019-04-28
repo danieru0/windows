@@ -86,7 +86,7 @@ class Notepad extends Component {
         return (
             <Draggable defaultPosition={defaultPosition} onDrag={(e) => this.handleDrag(e)} handle=".notepad__topbar" bounds="body">
                 <div ref={r => this.notepad = r} onClick={() => this.props.onClick(this.notepad)} className={
-                    appData.minimalized ? (this.state.maximize ? "notepad minimalized maximize" : 'notepad minimalized') : (this.state.maximize ? "notepad maximize" : 'notepad')
+                    appData.minimalized ? (this.state.maximize ? "notepad minimalized maximize" : "notepad minimalized") : (this.state.maximize ? "notepad maximize" : "notepad")
                     }>
                     <div className="notepad__topbar">
                         <span className="notepad__name">{appData.name}</span>

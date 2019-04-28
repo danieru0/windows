@@ -11,6 +11,15 @@
     display: none;
 }
 
+.videoplayer.maximize {
+    width: 100%;
+    height: calc(100% - 50px);
+}
+
+.videoplayer.maximize .videoplayer__topbar {
+    width: 100%;
+}
+
 .videoplayer__topbar {
     width: 1280px;
     height: 50px;
@@ -41,6 +50,16 @@
     outline: none;
     cursor: pointer;
     position: relative;
+}
+
+.videoplayer__resize {
+    border: none;
+    background: blue;
+    color: #ffffff;
+    width: 40px;
+    height: 20px;
+    outline: none;
+    cursor: pointer;
 }
 
 .videoplayer__minimalize {
