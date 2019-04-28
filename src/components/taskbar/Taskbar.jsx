@@ -38,7 +38,7 @@ class Taskbar extends Component {
     }
 
     handleTaskbarFileClick = program => {
-        this.props.toggleMinimalizeApp(this.props.applications, program.fileIndex);
+        this.props.toggleMinimalizeApp(this.props.applications, program.index, program.fileIndex);
 
     }
 

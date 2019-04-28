@@ -124,9 +124,13 @@ export const removeRunningAppFromLocalStorage = (runningApps, appIndex) => {
     }
 }
 
-export const toggleMinimalizeApp = (runningApps, appIndex) => {
+export const toggleMinimalizeApp = (runningApps, appIndex, index) => {
     return dispatch => {
-        runningApps.active[appIndex].minimalized = !runningApps.active[appIndex].minimalized;
+        try {
+            runningApps.active[appIndex].minimalized = !runningApps.active[appIndex].minimalized;
+        } catch {
+            runningApps.active[index].minimalized = !runningApps.active[index].minimalized;
+        }
         localStorage.setItem('running', JSON.stringify(runningApps));
         dispatch({
             type: 'REFRESH_RUNNING_DATA',
