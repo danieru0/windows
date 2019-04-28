@@ -12,7 +12,8 @@ class ImageViewer extends Component {
     constructor() {
         super();
         this.state = {
-            image: null
+            image: null,
+            maximize: false
         }
     }
 
@@ -30,9 +31,9 @@ class ImageViewer extends Component {
     }
 
     handleResizeButton = () => {
-        this.imageviewer.classList.toggle('maximize');
+        this.setState({ maximize: !this.state.maximize }, () => this.mw.reset());
         this.imageviewer.style.transform = null;
-        this.mw.reset();
+        this.imageviewer.style.top = 0;
     }
 
     handleCloseButton = () => {
@@ -44,9 +45,12 @@ class ImageViewer extends Component {
     }
 
     render() {
+        const { appData } = this.props;
         return (
             <Draggable handle=".imageviewer__topbar" bounds="body">
-                <div ref={r => this.imageviewer = r} onClick={() => this.props.onClick(this.imageviewer)} className="imageviewer">
+                <div ref={r => this.imageviewer = r} onClick={() => this.props.onClick(this.imageviewer)} className={
+                    appData.minimalized ? (this.state.maximize ? "imageviewer minimalized maximize" : "imageviewer minimalized") : (this.state.maximize ? "imageviewer maximize" : "imageviewer")
+                    }>
                     <div className="imageviewer__topbar">
                         <span className="imageviewer__name">Image Viewer</span>
                         <div className="imageviewer__program-options">

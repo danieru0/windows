@@ -12,7 +12,8 @@ class Notepad extends Component {
     constructor() {
         super();
         this.state = {
-            typing: false
+            typing: false,
+            maximize: false
         }
     }
     componentDidMount() {
@@ -70,8 +71,9 @@ class Notepad extends Component {
     }
 
     handleResizeButton = () => {
-        this.notepad.classList.toggle('maximize');
+        this.setState({ maximize: !this.state.maximize });
         this.notepad.style.transform = null;
+        this.notepad.style.top = 0;
     }
 
     render() {
@@ -83,7 +85,9 @@ class Notepad extends Component {
 
         return (
             <Draggable defaultPosition={defaultPosition} onDrag={(e) => this.handleDrag(e)} handle=".notepad__topbar" bounds="body">
-                <div ref={r => this.notepad = r} onClick={() => this.props.onClick(this.notepad)} className={appData.minimalized ? "notepad minimalized" : "notepad"}>
+                <div ref={r => this.notepad = r} onClick={() => this.props.onClick(this.notepad)} className={
+                    appData.minimalized ? (this.state.maximize ? "notepad minimalized maximize" : 'notepad minimalized') : (this.state.maximize ? "notepad maximize" : 'notepad')
+                    }>
                     <div className="notepad__topbar">
                         <span className="notepad__name">{appData.name}</span>
                         <div className="notepad__program-options">
