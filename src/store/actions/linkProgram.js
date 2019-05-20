@@ -19,7 +19,7 @@ export const runLinkApplication = runningApps => {
 export const createNewLinkFile = (data, link, icon) => {
     return dispatch => {
         let lastValue = parseInt(Object.keys(data.files)[Object.keys(data.files).length - 1]);
-        data.files[lastValue + 1] = {
+        data.files[isNaN(lastValue) ? 0 : lastValue + 1] = {
             name: 'Link file',
             type: 'link',
             background: icon ? icon : 'https://img.icons8.com/flat_round/64/000000/link.png',
