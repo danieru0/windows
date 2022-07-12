@@ -15,4 +15,4 @@ For fun.
 ## How to run locally
 
 Download repository, install dependencies and start project.
-Or test it online: https://elosiktv.github.io/windows/
+Or test it online: https://danieru0.github.io/windows/
